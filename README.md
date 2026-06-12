@@ -8,11 +8,16 @@
 - `assets/screenshot.png` — реальный скриншот приложения
 - `assets/icon.png` — иконка
 
-## Перед запуском (2 правки в `index.html`)
-1. **Счётчик визитов и кликов** — зарегистрируйся на https://www.goatcounter.com/signup,
-   получишь код вида `xxx.goatcounter.com`. Замени `MYCODE` в теге `<script data-goatcounter=...>`.
-2. **Сбор email** — создай форму на https://formspree.io, получишь ID.
-   Замени `YOUR_FORM_ID` (1 место) на свой.
+## Сбор email (уже настроен)
+Форма на сайте отправляет email в приватную Google-таблицу **«Jikoku — waitlist»**
+через Google Apps Script (web app, доступ Anyone). Endpoint зашит в `index.html`
+(`SHEET_ENDPOINT`). Боты отсекаются honeypot-полем `company`.
+Колонки в таблице: Date · Email · Lang · Source. Экспорт в CSV — через таблицу.
+
+## Перед запуском (1 правка в `index.html`)
+- **Счётчик визитов и кликов** — зарегистрируйся на https://www.goatcounter.com/signup,
+  получишь код вида `xxx.goatcounter.com`. Замени `MYCODE` в теге `<script data-goatcounter=...>`.
+  (Email уже собирается без доп. настройки.)
 
 ## Как опубликовать (сделать сайт живым)
 1. Сделать репозиторий публичным:
@@ -25,6 +30,7 @@
 - `cta-notify` — клик по главной кнопке вейтлиста
 - `want-email` — голос «хочу почту (iCloud + Exchange) в приложении»
 - `want-slots` — голос «хочу отправлять свободные слоты людям»
-- собранные email — в дашборде Formspree
+- собранные email — в Google-таблице «Jikoku — waitlist»
 
-Всё видно в дашборде GoatCounter (визиты + события) и Formspree (email).
+Визиты и события (cta-notify / want-email / want-slots) — в дашборде GoatCounter.
+Email — в Google-таблице.

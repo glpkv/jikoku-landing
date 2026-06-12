@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jikoku — Calendar + Reminders + Exchange in one window. For Mac.</title>
+<meta name="description" content="Apple Calendar, Reminders and your work Exchange in one beautiful native macOS window." />
+
+<meta property="og:title" content="Jikoku — Calendar, Reminders & Exchange in one window" />
+<meta property="og:description" content="Personal iCloud and work Exchange side by side. Native, calm, made for Mac." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/icon.png" />
+
+<!-- ============================================================= -->
+<!--  ANALYTICS — visits & clicks (GoatCounter, free)              -->
+<!--  1. Sign up: https://www.goatcounter.com/signup               -->
+<!--  2. You get a code like  myjikoku.goatcounter.com             -->
+<!--  3. Replace MYCODE below with your code.                      -->
+<!-- ============================================================= -->
+<script data-goatcounter="https://MYCODE.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+<style>
+  :root{
+    --bg:#0d0e12; --panel:#16181f; --panel2:#1d2029;
+    --txt:#e8eaf0; --muted:#9aa0ad; --line:#262a35;
+    --accent:#6c8cff; --accent2:#9d7bff; --ok:#3ad29f; --amber:#f5a623;
+    --radius:18px; --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Inter,system-ui,sans-serif;
+    background:radial-gradient(1200px 700px at 50% -10%,#1a1d2b 0%,var(--bg) 55%);
+    color:var(--txt);line-height:1.55;-webkit-font-smoothing:antialiased;
+    min-height:100vh;overflow-x:hidden;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* i18n: default RU; body.en swaps */
+  .en-t{display:none}
+  body.en .ru-t{display:none}
+  body.en .en-t{display:inline}
+  body.en .en-t.block{display:block}
+
+  /* NAV */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px}
+  .brand img{width:34px;height:34px;border-radius:9px}
+  .nav-right{display:flex;align-items:center;gap:18px}
+  nav .cta{font-size:14px;color:var(--muted);text-decoration:none}
+  nav .cta:hover{color:var(--txt)}
+  .lang{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .lang button{background:transparent;border:none;color:var(--muted);font-size:13px;
+    padding:6px 11px;cursor:pointer;font-weight:600}
+  .lang button.active{background:var(--panel2);color:var(--txt)}
+
+  /* HERO */
+  header{padding:54px 0 40px;text-align:center}
+  .merge{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:30px;flex-wrap:wrap}
+  .chip{display:flex;align-items:center;gap:9px;background:var(--panel);border:1px solid var(--line);
+    padding:10px 16px;border-radius:14px;font-size:14px;font-weight:600}
+  .chip svg{width:20px;height:20px}
+  .merge .plus{color:var(--muted);font-size:20px;font-weight:400}
+  .ic-rem{color:var(--ok)} .ic-cal{color:var(--accent)} .ic-exc{color:var(--accent2)}
+
+  h1{font-size:clamp(34px,6vw,58px);line-height:1.06;font-weight:800;letter-spacing:-.02em;
+    background:linear-gradient(180deg,#fff,#b9c0d4);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h1 .hl{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-size:clamp(17px,2.3vw,21px);color:var(--muted);max-width:600px;margin:22px auto 0}
+
+  /* FORM */
+  .signup{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:34px auto 0;max-width:480px}
+  .signup input{flex:1;min-width:220px;background:var(--panel2);border:1px solid var(--line);
+    color:var(--txt);padding:15px 18px;border-radius:14px;font-size:15px;outline:none}
+  .signup input:focus{border-color:var(--accent)}
+  .btn{cursor:pointer;border:none;font-size:15px;font-weight:650;color:#fff;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    padding:15px 26px;border-radius:14px;transition:transform .12s,box-shadow .2s;
+    box-shadow:0 8px 28px rgba(108,140,255,.28)}
+  .btn:hover{transform:translateY(-1px);box-shadow:0 12px 34px rgba(108,140,255,.4)}
+  .formnote{font-size:13px;color:var(--muted);margin-top:14px}
+  .thanks{display:none;color:var(--ok);font-weight:600;margin-top:22px;font-size:17px}
+
+  /* SCREENSHOT */
+  .shot{margin:52px auto 0;max-width:920px;background:var(--panel2);border:1px solid var(--line);
+    border-radius:16px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.55)}
+  .shot-bar{display:flex;align-items:center;gap:8px;padding:11px 16px;background:#101218;border-bottom:1px solid var(--line)}
+  .dot{width:12px;height:12px;border-radius:50%}
+  .dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+  .shot-title{margin-left:12px;font-size:12px;color:var(--muted)}
+  .shot img{display:block;width:100%}
+  .caption{font-size:13px;color:var(--muted);margin-top:14px}
+
+  /* SECTIONS */
+  section{padding:70px 0}
+  .eyebrow{color:var(--accent);font-size:14px;font-weight:600;text-align:center;margin-bottom:12px}
+  h2{font-size:clamp(26px,4vw,38px);text-align:center;font-weight:800;letter-spacing:-.02em}
+  .lead{text-align:center;color:var(--muted);max-width:640px;margin:18px auto 0;font-size:17px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:46px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+  .card .ic{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+    background:var(--panel2);margin-bottom:16px}
+  .card .ic svg{width:22px;height:22px}
+  .card h4{font-size:18px;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:15px}
+
+  /* HIGHLIGHT feature (drag & duration) */
+  .strip{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
+  .two h2{text-align:left}
+  .two p{color:var(--muted);font-size:17px;margin-top:14px}
+  .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--ok);
+    background:rgba(58,210,159,.1);border:1px solid rgba(58,210,159,.25);padding:5px 11px;border-radius:999px}
+  /* mini drag demo */
+  .demo{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:18px;position:relative;min-height:230px}
+  .demo .col{position:absolute;top:18px;bottom:18px;border-left:1px dashed var(--line)}
+  .hour{display:flex;gap:12px;align-items:flex-start;height:46px;color:var(--muted);font-size:12px}
+  .hour span{width:34px;flex:none;padding-top:0}
+  .hour .lane{flex:1;border-top:1px solid var(--line);height:100%}
+  .blk{position:absolute;left:60px;right:18px;border-radius:10px;padding:8px 12px;font-size:13px;color:#fff;font-weight:600}
+  .blk small{display:block;font-weight:400;opacity:.85;font-size:11px}
+  .blk .handle{position:absolute;right:7px;top:50%;transform:translateY(-50%);width:5px;height:60%;border-radius:5px;background:rgba(255,255,255,.55)}
+  .b1{top:30px;height:54px;background:linear-gradient(90deg,#6c8cff,#7d77ff)}
+  .b2{top:104px;height:86px;background:linear-gradient(90deg,#3ad29f,#34b88a)}
+
+  /* PRICING */
+  .ptier{background:var(--panel);border:1px solid var(--accent);border-radius:var(--radius);padding:34px;text-align:center;
+    max-width:380px;margin:46px auto 0;box-shadow:0 0 0 1px var(--accent),0 24px 70px rgba(108,140,255,.18)}
+  .ptier .lbl{color:var(--muted);font-size:14px}
+  .ptier .amt{font-size:48px;font-weight:800;margin:8px 0}
+  .ptier .amt span{font-size:16px;color:var(--muted);font-weight:500}
+  .ptier ul{list-style:none;text-align:left;margin:20px auto 0;max-width:260px}
+  .ptier li{padding:7px 0;font-size:15px;display:flex;gap:10px;color:var(--txt)}
+  .ptier li svg{width:18px;height:18px;color:var(--ok);flex:none;margin-top:3px}
+
+  /* POLL */
+  .poll{max-width:760px;margin:40px auto 0}
+  .pcard{display:flex;align-items:center;gap:16px;background:var(--panel);border:1px solid var(--line);
+    border-radius:14px;padding:18px 20px;margin-bottom:14px;cursor:pointer;transition:border-color .15s,background .15s}
+  .pcard:hover{border-color:var(--accent)}
+  .pcard.voted{border-color:var(--ok);background:rgba(58,210,159,.06)}
+  .pcard .pic{width:40px;height:40px;border-radius:10px;background:var(--panel2);display:flex;align-items:center;justify-content:center;flex:none}
+  .pcard .pic svg{width:22px;height:22px;color:var(--accent)}
+  .pcard .pt{flex:1}
+  .pcard .pt h4{font-size:16px}
+  .pcard .pt p{font-size:14px;color:var(--muted)}
+  .pcard .vote{font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap}
+  .pcard.voted .vote{color:var(--ok)}
+
+  footer{padding:40px 0 60px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+  footer a{color:var(--muted)}
+
+  @media(max-width:760px){
+    .grid{grid-template-columns:1fr}.two{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <div class="brand"><img src="assets/icon.png" alt="Jikoku" /> Jikoku</div>
+    <div class="nav-right">
+      <a class="cta" href="#signup"><span class="ru-t">Ранний доступ →</span><span class="en-t">Early access →</span></a>
+      <div class="lang">
+        <button id="ru" class="active" onclick="setLang('ru')">RU</button>
+        <button id="en" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <header>
+    <div class="merge">
+      <span class="chip"><svg class="ic-rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="ru-t">Напоминания</span><span class="en-t">Reminders</span></span>
+      <span class="plus">+</span>
+      <span class="chip"><svg class="ic-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="ru-t">Календарь</span><span class="en-t">Calendar</span></span>
+      <span class="plus">+</span>
+      <span class="chip"><svg class="ic-exc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V5l9-2v20M3 21h18M14 7h5v14M8 8v.01M8 12v.01M8 16v.01"/></svg>Exchange</span>
+    </div>
+
+    <h1>
+      <span class="ru-t">Один экран для всего,<br>что у тебя <span class="hl">запланировано</span></span>
+      <span class="en-t block">One window for everything<br>you have <span class="hl">planned</span></span>
+    </h1>
+    <p class="sub">
+      <span class="ru-t">Личный iCloud и рабочий Exchange-календарь рядом с твоими напоминаниями — в спокойном нативном интерфейсе для Mac.</span>
+      <span class="en-t">Your personal iCloud and work Exchange calendar, side by side with your reminders — in one calm, native Mac app.</span>
+    </p>
+
+    <!-- ============ EMAIL FORM (Formspree) ============ -->
+    <!-- Sign up at https://formspree.io, create a form, put your ID below -->
+    <form id="signup" class="signup" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="email" name="email" placeholder="you@email.com" required />
+      <button type="submit" class="btn" id="notifyBtn"><span class="ru-t">Хочу попробовать</span><span class="en-t">Notify me</span></button>
+    </form>
+    <div class="formnote"><span class="ru-t">Без спама. Напишем один раз, когда выйдет.</span><span class="en-t">No spam. One email, when it ships.</span></div>
+    <div class="thanks" id="thanks"><span class="ru-t">Спасибо! Напишем, как только Jikoku будет готов 🎉</span><span class="en-t">Thanks! We'll email you when Jikoku is ready 🎉</span></div>
+
+    <!-- REAL SCREENSHOT -->
+    <div class="shot">
+      <div class="shot-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="shot-title">Jikoku</span>
+      </div>
+      <img src="assets/screenshot.png" alt="Jikoku — calendar and reminders in one window" />
+    </div>
+    <div class="caption"><span class="ru-t">Реальный интерфейс Jikoku — никаких рендеров.</span><span class="en-t">Real Jikoku interface — not a render.</span></div>
+  </header>
+</div>
+
+<!-- HIGHLIGHT: drag & duration -->
+<section class="strip">
+  <div class="wrap two">
+    <div>
+      <span class="tag"><span class="ru-t">ЧЕГО НЕТ В APPLE CALENDAR</span><span class="en-t">NOT IN APPLE CALENDAR</span></span>
+      <h2 style="margin-top:14px"><span class="ru-t">Перетащи напоминание<br>прямо в день</span><span class="en-t block">Drag a reminder<br>straight into your day</span></h2>
+      <p><span class="ru-t">Берёшь задачу из списка и кидаешь её в календарь мышкой. А главное — <b style="color:var(--txt)">задаёшь ей длительность</b>: растягиваешь блок на нужное время. У обычных напоминаний Apple длительности нет вообще — только дедлайн.</span>
+         <span class="en-t">Grab a task from the list and drop it onto the calendar. And the key part — <b style="color:var(--txt)">give it a duration</b>: stretch the block to the time it needs. Apple Reminders have no duration at all — only a due date.</span></p>
+    </div>
+    <div class="demo">
+      <div class="hour" style="position:absolute;left:18px;right:18px;top:18px"><span>10:00</span><div class="lane"></div></div>
+      <div class="hour" style="position:absolute;left:18px;right:18px;top:64px"><span>11:00</span><div class="lane"></div></div>
+      <div class="hour" style="position:absolute;left:18px;right:18px;top:110px"><span>12:00</span><div class="lane"></div></div>
+      <div class="hour" style="position:absolute;left:18px;right:18px;top:156px"><span>13:00</span><div class="lane"></div></div>
+      <div class="blk b1"><span class="ru-t">Созвон по проекту</span><span class="en-t">Project call</span><small>10:00–10:45</small><span class="handle"></span></div>
+      <div class="blk b2"><span class="ru-t">Напоминание · правки макета</span><span class="en-t">Reminder · design edits</span><small>11:00–12:30 · <span class="ru-t">длительность задана</span><span class="en-t">duration set</span></small><span class="handle"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="ru-t">ЧТО ВНУТРИ</span><span class="en-t">WHAT'S INSIDE</span></div>
+    <h2><span class="ru-t">Одно окно вместо четырёх</span><span class="en-t">One window instead of four</span></h2>
+    <p class="lead"><span class="ru-t">Личное — через твой iCloud, без логинов и серверов. Рабочее — напрямую из Exchange.</span><span class="en-t">Personal lives in your iCloud — no logins, no servers. Work comes straight from Exchange.</span></p>
+    <div class="grid">
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h2M8 18h2"/></svg></div>
+        <h4><span class="ru-t">Календарь и задачи вместе</span><span class="en-t">Calendar & tasks together</span></h4>
+        <p><span class="ru-t">Встречи и напоминания на одном таймлайне. День, неделя, месяц.</span><span class="en-t">Meetings and reminders on one timeline. Day, week, month.</span></p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M12 2v20M2 12h20"/></svg></div>
+        <h4><span class="ru-t">Drag &amp; drop + длительность</span><span class="en-t">Drag &amp; drop + duration</span></h4>
+        <p><span class="ru-t">Перетащи напоминание в день и растяни на нужное время. Чего нет у Apple.</span><span class="en-t">Drop a reminder into the day and stretch it to the time it needs.</span></p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2"><path d="M3 21V5l9-2v20M3 21h18M14 7h5v14M8 8v.01M8 12v.01M8 16v.01"/></svg></div>
+        <h4><span class="ru-t">Рабочий Exchange рядом</span><span class="en-t">Work Exchange, right there</span></h4>
+        <p><span class="ru-t">Корпоративный календарь рядом с личным. Без запуска Outlook.</span><span class="en-t">Your company calendar next to your personal one. No Outlook needed.</span></p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#dfe3ee" stroke-width="2"><path d="M12 20.5C7 20.5 3 16.5 3 11.5 3 7 6 4 9.5 4c1.5 0 2.5.8 2.5.8S13 4 14.5 4C18 4 21 7 21 11.5c0 5-4 9-9 9z"/><path d="M12 4.8s.5-2.8 3-3"/></svg></div>
+        <h4><span class="ru-t">Нативно для Mac</span><span class="en-t">Native to Mac</span></h4>
+        <p><span class="ru-t">SwiftUI, тёмная тема, лёгкость. Ощущается как часть macOS.</span><span class="en-t">SwiftUI, dark theme, fast. Feels like part of macOS.</span></p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+        <h4><span class="ru-t">Приватно</span><span class="en-t">Private</span></h4>
+        <p><span class="ru-t">Личные данные — только в твоём iCloud. Наших серверов нет.</span><span class="en-t">Your personal data stays in your iCloud. We run no servers.</span></p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M12 3l1.9 5.8H20l-4.9 3.6 1.9 5.8L12 14.6 7 18.2l1.9-5.8L4 8.8h6.1z"/></svg></div>
+        <h4><span class="ru-t">Для дизайнеров</span><span class="en-t">For designers</span></h4>
+        <p><span class="ru-t">Спокойный интерфейс без визуального шума. Чтобы не отвлекал.</span><span class="en-t">A calm interface without visual noise. Made not to distract.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="strip">
+  <div class="wrap">
+    <div class="eyebrow"><span class="ru-t">ПЛАНИРУЕМАЯ ЦЕНА</span><span class="en-t">PLANNED PRICE</span></div>
+    <h2><span class="ru-t">Покупаешь один раз</span><span class="en-t">Buy it once</span></h2>
+    <p class="lead"><span class="ru-t">Никаких подписок. Приложение — твоё. Exchange входит в комплект.</span><span class="en-t">No subscriptions. The app is yours. Exchange included.</span></p>
+    <div class="ptier">
+      <div class="lbl">Jikoku</div>
+      <div class="amt">$49<span> <span class="ru-t">/ навсегда</span><span class="en-t">/ forever</span></span></div>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span class="ru-t">Календарь + Напоминания iCloud</span><span class="en-t">Calendar + iCloud Reminders</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span class="ru-t">Рабочий Exchange-календарь</span><span class="en-t">Work Exchange calendar</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span class="ru-t">Drag &amp; drop с длительностью</span><span class="en-t">Drag &amp; drop with duration</span></li>
+      </ul>
+    </div>
+    <p class="lead" style="margin-top:24px;font-size:15px"><span class="ru-t">Цена ориентировочная — помоги решить, оставь email выше.</span><span class="en-t">Price is tentative — help us decide, drop your email above.</span></p>
+  </div>
+</section>
+
+<!-- POLL: feature interest -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="ru-t">ПОМОГИ РЕШИТЬ, ЧТО ДЕЛАТЬ ДАЛЬШЕ</span><span class="en-t">HELP US DECIDE WHAT'S NEXT</span></div>
+    <h2><span class="ru-t">Что добавить в Jikoku?</span><span class="en-t">What should we add to Jikoku?</span></h2>
+    <p class="lead"><span class="ru-t">Нажми на то, что было бы тебе нужно. Это анонимно и помогает выбрать приоритеты.</span><span class="en-t">Tap what you'd actually use. It's anonymous and helps us prioritise.</span></p>
+    <div class="poll">
+      <div class="pcard" data-feature="email" onclick="vote(this)">
+        <div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+        <div class="pt">
+          <h4><span class="ru-t">Почта прямо в Jikoku</span><span class="en-t">Email inside Jikoku</span></h4>
+          <p><span class="ru-t">Проверять и iCloud, и Exchange-почту в том же приложении</span><span class="en-t">Read both iCloud and Exchange mail in the same app</span></p>
+        </div>
+        <div class="vote"><span class="ru-t">Хочу</span><span class="en-t">I want this</span></div>
+      </div>
+      <div class="pcard" data-feature="slots" onclick="vote(this)">
+        <div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/><path d="M16 3l2 2-2 2"/></svg></div>
+        <div class="pt">
+          <h4><span class="ru-t">Отправлять свободные слоты</span><span class="en-t">Share my free slots</span></h4>
+          <p><span class="ru-t">Скинуть человеку свободное время, чтобы он выбрал и забронировал</span><span class="en-t">Send someone your open time so they can pick and book a slot</span></p>
+        </div>
+        <div class="vote"><span class="ru-t">Хочу</span><span class="en-t">I want this</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Jikoku — <span class="ru-t">планировщик для macOS · Сделано на Mac, для Mac</span><span class="en-t">a planner for macOS · Made on a Mac, for Mac</span><br>
+    <a href="#signup"><span class="ru-t">Ранний доступ</span><span class="en-t">Early access</span></a>
+  </div>
+</footer>
+
+<script>
+  // ---- language ----
+  function setLang(l){
+    document.body.classList.toggle('en', l==='en');
+    document.getElementById('ru').classList.toggle('active', l==='ru');
+    document.getElementById('en').classList.toggle('active', l==='en');
+    document.documentElement.lang=l;
+    try{localStorage.setItem('jikoku_lang',l)}catch(e){}
+  }
+  (function(){
+    var saved; try{saved=localStorage.getItem('jikoku_lang')}catch(e){}
+    if(!saved){ saved=(navigator.language||'').toLowerCase().indexOf('ru')===0?'ru':'en'; }
+    setLang(saved);
+  })();
+
+  // ---- GoatCounter event helper ----
+  function track(name){
+    if(window.goatcounter && window.goatcounter.count){
+      window.goatcounter.count({path:name, title:name, event:true});
+    }
+  }
+
+  // ---- CTA click tracking ----
+  document.getElementById('notifyBtn').addEventListener('click', function(){ track('cta-notify'); });
+
+  // ---- feature poll ----
+  function vote(el){
+    var f=el.getAttribute('data-feature');
+    if(el.classList.contains('voted')) return;
+    el.classList.add('voted');
+    var v=el.querySelector('.vote');
+    v.querySelector('.ru-t').textContent='Учли ✓';
+    v.querySelector('.en-t').textContent='Noted ✓';
+    track('want-'+f);
+  }
+
+  // ---- form submit (AJAX, stay on page) ----
+  document.querySelectorAll('form.signup').forEach(function(form){
+    form.addEventListener('submit', function(e){
+      if(form.action.indexOf('YOUR_FORM_ID')!==-1){
+        e.preventDefault();
+        document.getElementById('thanks').style.display='block';
+        form.style.display='none'; track('cta-notify-demo'); return;
+      }
+      e.preventDefault();
+      fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+        .then(function(){
+          document.getElementById('thanks').style.display='block';
+          form.reset(); form.style.display='none';
+        });
+    });
+  });
+</script>
+</body>
+</html>

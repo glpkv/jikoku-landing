@@ -14,10 +14,9 @@
 (`SHEET_ENDPOINT`). Боты отсекаются honeypot-полем `company`.
 Колонки в таблице: Date · Email · Lang · Source. Экспорт в CSV — через таблицу.
 
-## Перед запуском (1 правка в `index.html`)
-- **Счётчик визитов и кликов** — зарегистрируйся на https://www.goatcounter.com/signup,
-  получишь код вида `xxx.goatcounter.com`. Замени `MYCODE` в теге `<script data-goatcounter=...>`.
-  (Email уже собирается без доп. настройки.)
+## Статистика визитов (уже настроена)
+Подключён GoatCounter — дашборд: **https://jikoku.goatcounter.com**
+(приватный, без кук). Считает визиты и события: `cta-notify`, `want-email`, `want-slots`.
 
 ## Как опубликовать (сделать сайт живым)
 1. Сделать репозиторий публичным:

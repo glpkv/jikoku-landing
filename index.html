@@ -203,7 +203,7 @@
         <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
         <span class="shot-title">Jikoku</span>
       </div>
-      <img src="assets/screenshot.png" alt="Jikoku — calendar and reminders in one window" />
+      <img id="heroShot" src="assets/screenshot.png" alt="Jikoku — calendar and reminders in one window" />
     </div>
     <div class="caption"><span class="ru-t">Реальный интерфейс Jikoku — никаких рендеров.</span><span class="en-t">Real Jikoku interface — not a render.</span></div>
   </header>
@@ -330,6 +330,8 @@
     document.getElementById('ru').classList.toggle('active', l==='ru');
     document.getElementById('en').classList.toggle('active', l==='en');
     document.documentElement.lang=l;
+    var shot=document.getElementById('heroShot');
+    if(shot){ shot.src = (l==='en') ? 'assets/screenshot-en.png' : 'assets/screenshot.png'; }
     try{localStorage.setItem('jikoku_lang',l)}catch(e){}
   }
   (function(){

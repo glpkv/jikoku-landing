@@ -218,9 +218,16 @@
   .contacts svg{width:22px;height:22px}
   .finefoot{max-width:680px;margin:18px auto 0;font-size:12px;line-height:1.7;color:#6a6a72}
 
+  @media(max-width:900px){
+    /* welcome/hero-баннер: картинка сверху ровным баннером, текст под ней по центру */
+    .welcome{grid-template-columns:1fr}
+    .welcome .wtext{padding:30px 26px;align-items:center;text-align:center}
+    .welcome .wmark,.hero-welcome .wmark{align-self:center}
+    .welcome .wimg,.hero-welcome .wimg{position:relative;min-height:0;aspect-ratio:16/10;order:-1}
+    .welcome .wimg img{object-position:center}
+  }
   @media(max-width:760px){
     .grid{grid-template-columns:1fr}.two{grid-template-columns:1fr}
-    .welcome{grid-template-columns:1fr}.welcome .wimg{min-height:260px;order:-1}
   }
 </style>
 </head>
@@ -231,10 +238,6 @@
     <div class="brand"><img src="assets/icon.png" alt="Jikoku" /> <img src="assets/jikoku-wordmark.png" class="brand-mark" alt="Jikoku" /></div>
     <div class="nav-right">
       <a class="cta" href="#signup"><span class="ru-t">Узнать о выходе →</span><span class="en-t">Get notified →</span></a>
-      <div class="lang">
-        <button id="ru" class="active" onclick="setLang('ru')">RU</button>
-        <button id="en" onclick="setLang('en')">EN</button>
-      </div>
     </div>
    </div>
   </nav>
@@ -290,7 +293,7 @@
 
     <!-- REAL SCREENSHOT -->
     <div class="shot reveal">
-      <img id="heroShot" src="assets/screenshot.png" alt="Jikoku — calendar and reminders in one window" />
+      <img id="heroShot" src="assets/screenshot.png?v=dark" alt="Jikoku — calendar and reminders in one window" />
     </div>
     <div class="caption reveal"><span class="ru-t">Реальный интерфейс Jikoku — никаких рендеров.</span><span class="en-t">Real Jikoku interface — not a render.</span></div>
   </header>
@@ -460,22 +463,84 @@
 </footer>
 
 <script>
-  // ---- language ----
-  function setLang(l){
-    document.body.classList.toggle('en', l==='en');
-    document.getElementById('ru').classList.toggle('active', l==='ru');
-    document.getElementById('en').classList.toggle('active', l==='en');
-    document.documentElement.lang=l;
-    var shot=document.getElementById('heroShot');
-    if(shot){ shot.src = (l==='en') ? 'assets/screenshot-en.png' : 'assets/screenshot.png'; }
-    var drag=document.getElementById('dragShot');
-    if(drag){ drag.src = (l==='en') ? 'assets/dragdrop-en.png' : 'assets/dragdrop.png'; }
-    try{localStorage.setItem('jikoku_lang',l)}catch(e){}
+  // ---- language: auto-detect (ru/en native, zh/ja/es/de via dictionary over the EN base) ----
+  var TR = {
+"Get notified →":{zh:"获取通知 →",ja:"発売通知を受け取る →",es:"Avísame →",de:"Benachrichtigen →"},
+"Kobayashi Issa":{zh:"小林一茶",ja:"小林一茶",es:"Kobayashi Issa",de:"Kobayashi Issa"},
+"Your personal iCloud and work Exchange calendar, side by side with your reminders — in one calm, native Mac app.":{zh:"你的个人 iCloud 与工作 Exchange 日历，和提醒事项并排呈现——在一个安静的原生 Mac 应用里。",ja:"個人のiCloudと仕事のExchangeカレンダーを、リマインダーと並べて——静かでネイティブなMacアプリで。",es:"Tu iCloud personal y tu calendario de Exchange del trabajo, junto a tus recordatorios — en una app de Mac nativa y tranquila.",de:"Dein privater iCloud- und dein beruflicher Exchange-Kalender — direkt neben deinen Erinnerungen, in einer ruhigen, nativen Mac-App."},
+"Get it first":{zh:"抢先体验",ja:"いち早く手に入れる",es:"Conseguir antes",de:"Zuerst sichern"},
+"Still in development. No spam — one email, when it ships.":{zh:"仍在开发中。绝不打扰——发布时只发一封邮件。",ja:"開発中です。スパムなし——リリース時にメール1通だけ。",es:"Aún en desarrollo. Sin spam: un solo correo, cuando salga.",de:"Noch in Entwicklung. Kein Spam – eine E-Mail, wenn es so weit ist."},
+"Thanks! We'll email you when Jikoku is ready 🎉":{zh:"谢谢！Jikoku 准备好后我们会邮件通知你 🎉",ja:"ありがとう！Jikokuが準備できたらメールします 🎉",es:"¡Gracias! Te escribiremos cuando Jikoku esté listo 🎉",de:"Danke! Wir melden uns per E-Mail, sobald Jikoku bereit ist 🎉"},
+"What's inside ↓":{zh:"内含功能 ↓",ja:"中身を見る ↓",es:"Qué incluye ↓",de:"Was drin ist ↓"},
+"Reminders":{zh:"提醒事项",ja:"リマインダー",es:"Recordatorios",de:"Erinnerungen"},
+"Calendar":{zh:"日历",ja:"カレンダー",es:"Calendario",de:"Kalender"},
+"Real Jikoku interface — not a render.":{zh:"真实的 Jikoku 界面——并非渲染图。",ja:"本物のJikokuの画面——レンダリングではありません。",es:"Interfaz real de Jikoku, no un render.",de:"Echte Jikoku-Oberfläche – kein Render."},
+"NOT IN APPLE CALENDAR":{zh:"苹果日历没有的功能",ja:"Appleカレンダーにはない",es:"NO ESTÁ EN APPLE CALENDAR",de:"NICHT IM APPLE KALENDER"},
+"Drag a reminder<br>straight into your day":{zh:"把提醒事项<br>直接拖进你的一天",ja:"リマインダーを<br>そのまま予定にドラッグ",es:"Arrastra un recordatorio<br>directo a tu día",de:"Zieh eine Erinnerung<br>direkt in deinen Tag"},
+"Grab a task from the list and drop it onto the calendar. And the key part — <b>give it a duration</b>: stretch the block to the time it needs. Apple Reminders have no duration at all — only a due date.":{zh:"从列表里抓起一个任务，拖到日历上。关键是——<b>给它设定时长</b>：把时间块拉到需要的长度。苹果提醒事项根本没有时长，只有截止日期。",ja:"リストからタスクをつかんでカレンダーにドロップ。大事なのは——<b>長さを決められる</b>こと：必要な時間までブロックを伸ばせます。Appleのリマインダーには長さがなく、締め切りだけです。",es:"Coge una tarea de la lista y suéltala en el calendario. Y lo importante: <b>dale una duración</b>, estira el bloque al tiempo que necesite. Los Recordatorios de Apple no tienen duración, solo una fecha límite.",de:"Nimm eine Aufgabe aus der Liste und zieh sie in den Kalender. Und das Wichtigste: <b>gib ihr eine Dauer</b> – zieh den Block auf die benötigte Zeit. Apple Erinnerungen haben gar keine Dauer, nur ein Fälligkeitsdatum."},
+"ON-DEVICE AI — NO CLOUD":{zh:"本地 AI——无需云端",ja:"オンデバイスAI——クラウド不要",es:"IA EN EL DISPOSITIVO — SIN NUBE",de:"KI AUF DEM GERÄT — OHNE CLOUD"},
+"Dictate — it sorts it<br>into tasks for you":{zh:"口述一句——它替你<br>整理成任务",ja:"話すだけ——<br>タスクに整理します",es:"Dicta — y lo ordena<br>en tareas por ti",de:"Diktier’s — und es sortiert<br>alles in Aufgaben"},
+"Speak or type your tasks and meetings in plain language — a neural net <b>right on your Mac</b> (no servers, no Apple Intelligence) turns it into tasks with date, time and duration. Several tasks in one phrase get split apart.":{zh:"用日常语言说出或输入你的任务和会议——<b>就在你的 Mac 上</b>（无服务器、无需 Apple Intelligence）的神经网络会把它变成带日期、时间和时长的任务。一句话里有多个事项也会被拆开。",ja:"普通の言葉でタスクや会議を話す・入力するだけ——<b>あなたのMac上で</b>（サーバー不要、Apple Intelligence不要）ニューラルネットが日付・時刻・長さ付きのタスクに変換。1つの文に複数の用件があれば分けてくれます。",es:"Habla o escribe tus tareas y reuniones en lenguaje normal — una red neuronal <b>en tu propio Mac</b> (sin servidores, sin Apple Intelligence) lo convierte en tareas con fecha, hora y duración. Varias tareas en una frase se separan.",de:"Sprich oder tippe deine Aufgaben und Termine in normaler Sprache – ein neuronales Netz <b>direkt auf deinem Mac</b> (keine Server, kein Apple Intelligence) macht daraus Aufgaben mit Datum, Zeit und Dauer. Mehrere Aufgaben in einem Satz werden getrennt."},
+"<b>Dictation</b> of tasks and meetings by voice or text — in English, Russian, Chinese, Japanese and more.":{zh:"<b>语音或文字口述</b>任务和会议——支持英语、俄语、中文、日语等。",ja:"<b>音声またはテキストで</b>タスクや会議を入力——英語・ロシア語・中国語・日本語ほか対応。",es:"<b>Dictado</b> de tareas y reuniones por voz o texto — en inglés, ruso, chino, japonés y más.",de:"<b>Diktat</b> von Aufgaben und Terminen per Sprache oder Text – auf Englisch, Russisch, Chinesisch, Japanisch und mehr."},
+"<b>Smart search</b> across meetings and reminders.":{zh:"<b>智能搜索</b>会议与提醒事项。",ja:"会議とリマインダーを<b>スマート検索</b>。",es:"<b>Búsqueda inteligente</b> en reuniones y recordatorios.",de:"<b>Intelligente Suche</b> über Termine und Erinnerungen."},
+"<b>Ask “what do I have next Friday?”</b> — and get the day's schedule, free slots and suggestions.":{zh:"<b>问一句“下周五我有什么安排？”</b>——就能看到当天日程、空闲时段和建议。",ja:"<b>「来週の金曜は何がある？」と聞けば</b>——その日の予定・空き時間・おすすめが返ってきます。",es:"<b>Pregunta “¿qué tengo el próximo viernes?”</b> — y obtén la agenda del día, los huecos libres y sugerencias.",de:"<b>Frag „Was habe ich nächsten Freitag?“</b> – und bekomm den Tagesplan, freie Zeiten und Vorschläge."},
+"WHAT'S INSIDE":{zh:"功能一览",ja:"主な機能",es:"QUÉ INCLUYE",de:"WAS DRIN IST"},
+"One window instead of four":{zh:"一个窗口，取代四个",ja:"4つのアプリを1つの画面に",es:"Una ventana en vez de cuatro",de:"Ein Fenster statt vier"},
+"Personal lives in your iCloud — no logins, no servers. Work comes straight from Exchange.":{zh:"个人数据存在你的 iCloud——无需登录、无服务器。工作日历直接来自 Exchange。",ja:"個人データはあなたのiCloudに——ログインもサーバーも不要。仕事はExchangeから直接。",es:"Lo personal vive en tu iCloud — sin inicios de sesión ni servidores. El trabajo llega directo desde Exchange.",de:"Privates liegt in deiner iCloud – keine Logins, keine Server. Berufliches kommt direkt aus Exchange."},
+"Calendar &amp; tasks together":{zh:"日历与任务合一",ja:"カレンダーとタスクを一緒に",es:"Calendario y tareas juntos",de:"Kalender &amp; Aufgaben vereint"},
+"Meetings and reminders on one timeline. Day, week, month.":{zh:"会议与提醒事项在同一时间轴。日、周、月。",ja:"会議とリマインダーを1つのタイムラインに。日・週・月。",es:"Reuniones y recordatorios en una sola línea de tiempo. Día, semana, mes.",de:"Termine und Erinnerungen auf einer Zeitleiste. Tag, Woche, Monat."},
+"Drag &amp; drop + duration":{zh:"拖放 + 时长",ja:"ドラッグ＆ドロップ + 長さ",es:"Arrastrar y soltar + duración",de:"Drag &amp; Drop + Dauer"},
+"Drop a reminder into the day and stretch it to the time it needs.":{zh:"把提醒事项拖进一天，并拉到它需要的时长。",ja:"リマインダーをその日にドロップし、必要な長さに伸ばせます。",es:"Suelta un recordatorio en el día y estíralo al tiempo que necesite.",de:"Zieh eine Erinnerung in den Tag und streck sie auf die nötige Zeit."},
+"Work Exchange, right there":{zh:"工作 Exchange，就在眼前",ja:"仕事のExchangeもすぐそこに",es:"El Exchange del trabajo, ahí mismo",de:"Berufs-Exchange, direkt dabei"},
+"Your corporate Exchange calendar next to your personal one — no clunky corporate client.":{zh:"把公司的 Exchange 日历放在个人日历旁边——告别笨重的企业客户端。",ja:"会社のExchangeカレンダーを個人のすぐ隣に——重い企業向けクライアントは不要。",es:"Tu calendario corporativo de Exchange junto al personal — sin clientes corporativos pesados.",de:"Dein Firmen-Exchange-Kalender neben dem privaten – ohne sperrigen Firmen-Client."},
+"Native to Mac":{zh:"为 Mac 原生打造",ja:"Macにネイティブ",es:"Nativo de Mac",de:"Nativ für Mac"},
+"SwiftUI, light &amp; dark, fast. Feels like part of macOS.":{zh:"SwiftUI 打造，明暗主题，轻快。如同 macOS 的一部分。",ja:"SwiftUI製、ライト＆ダーク、軽快。macOSの一部のような感覚。",es:"SwiftUI, claro y oscuro, rápido. Se siente parte de macOS.",de:"SwiftUI, hell &amp; dunkel, schnell. Fühlt sich wie Teil von macOS an."},
+"Private":{zh:"隐私至上",ja:"プライベート",es:"Privado",de:"Privat"},
+"Your personal data stays in your iCloud. We run no servers.":{zh:"你的个人数据留在你的 iCloud。我们不运行任何服务器。",ja:"個人データはあなたのiCloudに。私たちはサーバーを持ちません。",es:"Tus datos personales se quedan en tu iCloud. No tenemos servidores.",de:"Deine privaten Daten bleiben in deiner iCloud. Wir betreiben keine Server."},
+"Mac in a Windows world":{zh:"Windows 世界里的 Mac",ja:"Windows社会の中のMac",es:"Un Mac en un mundo Windows",de:"Mac in einer Windows-Welt"},
+"For people on a Mac inside a corporate Windows environment. A human interface over your work Exchange.":{zh:"为身处企业 Windows 环境却使用 Mac 的人而做。在工作 Exchange 之上，给你一个人性化的界面。",ja:"企業のWindows環境でMacを使う人のために。仕事のExchangeの上に、人にやさしい画面を。",es:"Para quienes usan un Mac dentro de un entorno corporativo Windows. Una interfaz humana sobre tu Exchange del trabajo.",de:"Für alle, die einen Mac in einer Windows-Firmenumgebung nutzen. Eine menschliche Oberfläche über deinem Berufs-Exchange."},
+"PLANNED PRICE":{zh:"计划价格",ja:"予定価格",es:"PRECIO PREVISTO",de:"GEPLANTER PREIS"},
+"Buy it once":{zh:"一次买断",ja:"買い切り",es:"Cómpralo una vez",de:"Einmal kaufen"},
+"No subscriptions. The app is yours. Exchange included.":{zh:"没有订阅。应用归你所有。含 Exchange。",ja:"サブスクなし。アプリはあなたのもの。Exchange込み。",es:"Sin suscripciones. La app es tuya. Exchange incluido.",de:"Keine Abos. Die App gehört dir. Exchange inklusive."},
+"/ forever":{zh:"／永久",ja:"／買い切り",es:"/ para siempre",de:"/ für immer"},
+"A one-time price — not $20–25/mo like other planners":{zh:"一次性价格——不像其他日程应用每月 $20–25",ja:"一度きりの価格——他のプランナーのような月$20–25ではありません",es:"Un pago único — no $20–25/mes como otros planificadores",de:"Einmalpreis – nicht $20–25/Monat wie andere Planer"},
+"Calendar + iCloud Reminders":{zh:"日历 + iCloud 提醒事项",ja:"カレンダー + iCloudリマインダー",es:"Calendario + Recordatorios de iCloud",de:"Kalender + iCloud-Erinnerungen"},
+"Work Exchange calendar":{zh:"工作 Exchange 日历",ja:"仕事のExchangeカレンダー",es:"Calendario de Exchange del trabajo",de:"Berufs-Exchange-Kalender"},
+"Drag &amp; drop with duration":{zh:"带时长的拖放",ja:"長さ付きドラッグ＆ドロップ",es:"Arrastrar y soltar con duración",de:"Drag &amp; Drop mit Dauer"},
+"Price is tentative — help us decide, drop your email above.":{zh:"价格暂定——帮我们决定，在上方留下邮箱。",ja:"価格は仮です——上にメールを入れて、決定に協力してください。",es:"El precio es tentativo — ayúdanos a decidir, deja tu correo arriba.",de:"Der Preis ist vorläufig – hilf uns zu entscheiden, trag oben deine E-Mail ein."},
+"HELP US DECIDE WHAT'S NEXT":{zh:"帮我们决定下一步",ja:"次に何を作るか決めて",es:"AYÚDANOS A DECIDIR QUÉ SIGUE",de:"HILF UNS, ÜBER DAS NÄCHSTE ZU ENTSCHEIDEN"},
+"What should we add to Jikoku?":{zh:"我们该给 Jikoku 加点什么？",ja:"Jikokuに何を追加すべき？",es:"¿Qué deberíamos añadir a Jikoku?",de:"Was sollen wir zu Jikoku hinzufügen?"},
+"Tap what you'd actually use. It's anonymous and helps us prioritise.":{zh:"点选你真正会用的功能。匿名，帮助我们排定优先级。",ja:"実際に使う機能をタップ。匿名で、優先順位の参考になります。",es:"Toca lo que de verdad usarías. Es anónimo y nos ayuda a priorizar.",de:"Tippe an, was du wirklich nutzen würdest. Anonym und hilft uns beim Priorisieren."},
+"Email inside Jikoku":{zh:"在 Jikoku 内收发邮件",ja:"Jikoku内のメール",es:"Correo dentro de Jikoku",de:"E-Mail in Jikoku"},
+"Read both iCloud and Exchange mail in the same app":{zh:"在同一应用里查看 iCloud 和 Exchange 邮件",ja:"iCloudとExchangeのメールを同じアプリで",es:"Lee el correo de iCloud y Exchange en la misma app",de:"iCloud- und Exchange-Mail in derselben App lesen"},
+"I want this":{zh:"我想要",ja:"ほしい",es:"Lo quiero",de:"Will ich"},
+"Share my free slots":{zh:"分享我的空闲时段",ja:"空き時間を共有",es:"Compartir mis huecos libres",de:"Freie Zeiten teilen"},
+"Send someone your open time so they can pick and book a slot":{zh:"把你的空闲时间发给别人，让对方挑选并预订",ja:"空き時間を相手に送り、選んで予約してもらう",es:"Envía tu tiempo libre para que elijan y reserven un hueco",de:"Schick jemandem deine freien Zeiten, damit er einen Slot wählt und bucht"},
+"IN YOUR LANGUAGE":{zh:"用你的语言",ja:"あなたの言語で",es:"EN TU IDIOMA",de:"IN DEINER SPRACHE"},
+"Interface &amp; dictation in 6 languages":{zh:"界面与口述，支持 6 种语言",ja:"インターフェースと音声入力が6言語対応",es:"Interfaz y dictado en 6 idiomas",de:"Oberfläche &amp; Diktat in 6 Sprachen"},
+"The app and on-device speech recognition understand:":{zh:"应用与本地语音识别支持：",ja:"アプリとオンデバイス音声認識が対応：",es:"La app y el reconocimiento de voz en el dispositivo entienden:",de:"Die App und die Spracherkennung auf dem Gerät verstehen:"},
+"a planner for macOS · Made on a Mac, for Mac":{zh:"macOS 日程应用 · 由 Mac 打造，为 Mac 而生",ja:"macOSのプランナー · Macで作り、Macのために",es:"un planificador para macOS · Hecho en un Mac, para Mac",de:"ein Planer für macOS · Auf dem Mac gemacht, für den Mac"},
+"Terms of Use":{zh:"使用条款",ja:"利用規約",es:"Términos de uso",de:"Nutzungsbedingungen"}
+  };
+  function applyLang(lang){
+    var isRu = lang==='ru';
+    document.body.classList.toggle('en', !isRu);
+    document.documentElement.lang=lang;
+    if(isRu || lang==='en') return;
+    document.querySelectorAll('.en-t').forEach(function(el){
+      var k=el.innerHTML.trim(); var d=TR[k];
+      if(d && d[lang]) el.innerHTML=d[lang];
+    });
   }
   (function(){
-    var saved; try{saved=localStorage.getItem('jikoku_lang')}catch(e){}
-    if(!saved){ saved=(navigator.language||'').toLowerCase().indexOf('ru')===0?'ru':'en'; }
-    setLang(saved);
+    var code=(navigator.language||navigator.userLanguage||'en').toLowerCase();
+    var lang='en';
+    if(code.indexOf('ru')===0)lang='ru';
+    else if(code.indexOf('zh')===0)lang='zh';
+    else if(code.indexOf('ja')===0)lang='ja';
+    else if(code.indexOf('es')===0)lang='es';
+    else if(code.indexOf('de')===0)lang='de';
+    applyLang(lang);
   })();
 
   // ---- scroll reveal (IntersectionObserver) ----

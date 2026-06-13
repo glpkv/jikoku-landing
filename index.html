@@ -160,7 +160,7 @@
   .ai-list li::before{content:"✦";position:absolute;left:0;top:0;color:var(--accent)}
   /* real cropped screenshot for the drag & duration feature */
   .demoshot{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0d0d0f}
-  .demoshot img{display:block;width:100%}
+  .demoshot img,.demoshot video{display:block;width:100%}
 
   /* PRICING */
   .ptier{background:var(--panel);border:1px solid var(--accent);border-radius:var(--radius);padding:34px;text-align:center;
@@ -305,7 +305,8 @@
          <span class="en-t">Grab a task from the list and drop it onto the calendar. And the key part — <b>give it a duration</b>: stretch the block to the time it needs. Apple Reminders have no duration at all — only a due date.</span></p>
     </div>
     <div class="demoshot reveal">
-      <img id="dragShot" src="assets/dragdrop.png" alt="Reminders dragged into the calendar with durations" />
+      <video src="assets/dragdrop.mp4" autoplay loop muted playsinline preload="auto"
+             poster="assets/dragdrop.png" aria-label="Reminders dragged into the calendar with durations"></video>
     </div>
   </div>
 </section>

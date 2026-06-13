@@ -78,6 +78,7 @@
   nav.scrolled{border-bottom-color:var(--line)}
   .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px}
   .brand img{width:36px;height:36px;filter:drop-shadow(0 2px 5px rgba(20,28,55,.18))}
+  .brand .brand-mark{width:auto;height:26px;filter:none}
   .nav-right{display:flex;align-items:center;gap:18px}
   nav .cta{font-size:14px;color:var(--muted);text-decoration:none}
   nav .cta:hover{color:var(--txt)}
@@ -143,6 +144,9 @@
   .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--ok);
     background:rgba(21,160,90,.1);border:1px solid rgba(21,160,90,.22);padding:5px 11px;border-radius:999px}
   .two b{color:var(--txt)}
+  .ai-list{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+  .ai-list li{position:relative;padding-left:26px;color:var(--muted);line-height:1.5}
+  .ai-list li::before{content:"✦";position:absolute;left:0;top:0;color:var(--accent)}
   /* real cropped screenshot for the drag & duration feature */
   .demoshot{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
   .demoshot img{display:block;width:100%}
@@ -184,7 +188,7 @@
 
   <nav id="nav">
    <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;width:100%">
-    <div class="brand"><img src="assets/icon.png" alt="Jikoku" /> Jikoku</div>
+    <div class="brand"><img src="assets/icon.png" alt="Jikoku" /> <img src="assets/jikoku-wordmark.png" class="brand-mark" alt="Jikoku" /></div>
     <div class="nav-right">
       <a class="cta" href="mailto:lapkovsky.g@gmail.com?subject=Jikoku%20%E2%80%94%20early%20access"><span class="ru-t">Ранний доступ →</span><span class="en-t">Early access →</span></a>
       <div class="lang">
@@ -252,6 +256,26 @@
     </div>
     <div class="demoshot reveal">
       <img id="dragShot" src="assets/dragdrop.png" alt="Reminders dragged into the calendar with durations" />
+    </div>
+  </div>
+</section>
+
+<!-- ON-DEVICE AI -->
+<section>
+  <div class="wrap two">
+    <div class="demoshot reveal">
+      <img id="aiShot" src="assets/ai-search.png" alt="Dictate or type a task — parsed on device" onerror="this.closest('.demoshot').style.display='none'" />
+    </div>
+    <div class="reveal">
+      <span class="tag"><span class="ru-t">ЛОКАЛЬНЫЙ ИИ — БЕЗ ОБЛАКА</span><span class="en-t">ON-DEVICE AI — NO CLOUD</span></span>
+      <h2 style="margin-top:14px"><span class="ru-t">Продиктуй — он сам<br>разложит по задачам</span><span class="en-t block">Dictate — it sorts it<br>into tasks for you</span></h2>
+      <p><span class="ru-t">Наговори или напечатай свои дела и встречи обычной речью — нейросеть <b>прямо на твоём Mac</b> (без серверов и без Apple Intelligence) разберёт это на задачи: с датой, временем и длительностью. Несколько дел в одной фразе — разложит по отдельности.</span>
+         <span class="en-t">Speak or type your tasks and meetings in plain language — a neural net <b>right on your Mac</b> (no servers, no Apple Intelligence) turns it into tasks with date, time and duration. Several tasks in one phrase get split apart.</span></p>
+      <ul class="ai-list">
+        <li><span class="ru-t"><b>Диктовка</b> задач и встреч голосом или текстом — на русском, английском, китайском, японском и др.</span><span class="en-t"><b>Dictation</b> of tasks and meetings by voice or text — in English, Russian, Chinese, Japanese and more.</span></li>
+        <li><span class="ru-t"><b>Умный поиск</b> по встречам и напоминаниям.</span><span class="en-t"><b>Smart search</b> across meetings and reminders.</span></li>
+        <li><span class="ru-t"><b>Спроси «что у меня в пятницу на следующей неделе?»</b> — и получишь расписание дня, свободные слоты и рекомендации.</span><span class="en-t"><b>Ask “what do I have next Friday?”</b> — and get the day's schedule, free slots and suggestions.</span></li>
+      </ul>
     </div>
   </div>
 </section>

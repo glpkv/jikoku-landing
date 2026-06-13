@@ -205,6 +205,9 @@
   .welcome .wauthor{font-size:13px;color:var(--muted)}
   .welcome .wimg{position:relative;min-height:340px}
   .welcome .wimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:72% center}
+  .hero-welcome{max-width:1000px}
+  .hero-welcome .wimg{min-height:420px}
+  .hero-welcome .haiku{font-size:25px}
 
   /* CONTACTS */
   .contacts{display:flex;gap:14px;justify-content:center;margin:6px 0 26px}
@@ -226,7 +229,7 @@
    <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;width:100%">
     <div class="brand"><img src="assets/icon.png" alt="Jikoku" /> <img src="assets/jikoku-wordmark.png" class="brand-mark" alt="Jikoku" /></div>
     <div class="nav-right">
-      <a class="cta" href="mailto:lapkovsky.g@gmail.com?subject=Jikoku%20%E2%80%94%20early%20access"><span class="ru-t">Ранний доступ →</span><span class="en-t">Early access →</span></a>
+      <a class="cta" href="#signup"><span class="ru-t">Узнать о выходе →</span><span class="en-t">Get notified →</span></a>
       <div class="lang">
         <button id="ru" class="active" onclick="setLang('ru')">RU</button>
         <button id="en" onclick="setLang('en')">EN</button>
@@ -236,24 +239,35 @@
   </nav>
 
 <div class="wrap">
-  <header>
-    <img class="hero-icon reveal" src="assets/icon.png" alt="Jikoku" />
-    <div class="bigtitle reveal">Jikoku</div>
-    <h1 class="reveal" style="font-size:clamp(22px,3.2vw,30px);font-weight:700;margin-top:14px">
-      <span class="ru-t">Один экран для всего,<br>что у тебя <span class="hl">запланировано</span></span>
-      <span class="en-t block">One window for everything<br>you have <span class="hl">planned</span></span>
-    </h1>
-    <p class="sub reveal">
+  <header style="padding-top:34px">
+    <!-- HERO: welcome banner (poem + illustration) -->
+    <div class="welcome hero-welcome reveal">
+      <div class="wtext">
+        <img class="wmark" src="assets/jikoku-wordmark.png" alt="Jikoku" />
+        <div class="haiku">露の世は
+露の世ながら
+さりながら</div>
+        <div class="wauthor">— <span class="ru-t">Кобаяси Исса</span><span class="en-t">Kobayashi Issa</span> (1763–1828)</div>
+      </div>
+      <div class="wimg"><img src="assets/welcome-banner.png" alt="Sakura and Mount Fuji" /></div>
+    </div>
+
+    <p class="sub reveal" style="margin-top:30px">
       <span class="ru-t">Личный iCloud и рабочий Exchange-календарь рядом с твоими напоминаниями — в спокойном нативном интерфейсе для Mac.</span>
       <span class="en-t">Your personal iCloud and work Exchange calendar, side by side with your reminders — in one calm, native Mac app.</span>
     </p>
 
-    <div class="pills reveal">
-      <a class="pill primary" href="#signup">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
-        <span class="ru-t">Ранний доступ</span><span class="en-t">Early access</span>
-      </a>
-      <a class="pill ghost" href="#features"><span class="ru-t">Что внутри</span><span class="en-t">What's inside</span></a>
+    <!-- ============ EMAIL FORM (Formspree) ============ -->
+    <form id="signup" class="signup reveal">
+      <input type="email" name="email" placeholder="you@email.com" required />
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
+      <button type="submit" class="btn" id="notifyBtn"><span class="ru-t">Узнать о выходе</span><span class="en-t">Notify me at launch</span></button>
+    </form>
+    <div class="formnote reveal"><span class="ru-t">Пока идёт разработка. Без спама — напишем один раз, когда выйдет.</span><span class="en-t">Still in development. No spam — one email, when it ships.</span></div>
+    <div class="thanks" id="thanks"><span class="ru-t">Спасибо! Напишем, как только Jikoku будет готов 🎉</span><span class="en-t">Thanks! We'll email you when Jikoku is ready 🎉</span></div>
+
+    <div class="pills reveal" style="margin-top:24px">
+      <a class="pill ghost" href="#features"><span class="ru-t">Что внутри ↓</span><span class="en-t">What's inside ↓</span></a>
     </div>
 
     <div class="appicons reveal stagger" style="margin-top:48px">
@@ -272,16 +286,6 @@
         <span class="applabel">Exchange</span>
       </div>
     </div>
-
-    <!-- ============ EMAIL FORM (Formspree) ============ -->
-    <!-- Sign up at https://formspree.io, create a form, put your ID below -->
-    <form id="signup" class="signup reveal">
-      <input type="email" name="email" placeholder="you@email.com" required />
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
-      <button type="submit" class="btn" id="notifyBtn"><span class="ru-t">Хочу попробовать</span><span class="en-t">Notify me</span></button>
-    </form>
-    <div class="formnote reveal"><span class="ru-t">Без спама. Напишем один раз, когда выйдет.</span><span class="en-t">No spam. One email, when it ships.</span></div>
-    <div class="thanks" id="thanks"><span class="ru-t">Спасибо! Напишем, как только Jikoku будет готов 🎉</span><span class="en-t">Thanks! We'll email you when Jikoku is ready 🎉</span></div>
 
     <!-- REAL SCREENSHOT -->
     <div class="shot reveal">
@@ -422,24 +426,6 @@
     <p class="lead reveal"><span class="ru-t">Приложение и локальное распознавание речи понимают:</span><span class="en-t">The app and on-device speech recognition understand:</span></p>
     <div class="langchips reveal stagger">
       <span>Русский</span><span>English</span><span>中文</span><span>日本語</span><span>Español</span><span>Deutsch</span>
-    </div>
-  </div>
-</section>
-
-<!-- WELCOME (first-launch screen) -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow reveal"><span class="ru-t">ПЕРВЫЙ ЗАПУСК</span><span class="en-t">FIRST LAUNCH</span></div>
-    <h2 class="reveal"><span class="ru-t">Тебя встречает тишина и сакура</span><span class="en-t">You're greeted by stillness and sakura</span></h2>
-    <div class="welcome reveal">
-      <div class="wtext">
-        <img class="wmark" src="assets/jikoku-wordmark.png" alt="Jikoku" />
-        <div class="haiku">露の世は
-露の世ながら
-さりながら</div>
-        <div class="wauthor">— <span class="ru-t">Кобаяси Исса</span><span class="en-t">Kobayashi Issa</span> (1763–1828)</div>
-      </div>
-      <div class="wimg"><img src="assets/welcome-banner.png" alt="Sakura and Mount Fuji" /></div>
     </div>
   </div>
 </section>

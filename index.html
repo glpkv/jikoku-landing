@@ -101,6 +101,17 @@
   h1{font-size:clamp(34px,6vw,58px);line-height:1.06;font-weight:800;letter-spacing:-.02em;color:var(--txt)}
   h1 .hl{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
   .sub{font-size:clamp(17px,2.3vw,21px);color:var(--muted);max-width:600px;margin:22px auto 0}
+  /* minimal hero (dynamiclake-style) */
+  .hero-icon{width:96px;height:96px;display:block;margin:10px auto 20px;border-radius:22px}
+  .bigtitle{font-size:clamp(54px,11vw,118px);font-weight:800;letter-spacing:-.03em;line-height:.94;color:var(--txt)}
+  .pills{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:32px 0 0}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:999px;
+    font-size:15px;font-weight:650;text-decoration:none;transition:transform .15s,border-color .2s}
+  .pill.primary{background:#fff;color:#000}
+  .pill.ghost{border:1px solid var(--line);color:var(--txt)}
+  .pill:hover{transform:translateY(-2px)}
+  .pill.ghost:hover{border-color:var(--accent)}
+  .pill svg{width:16px;height:16px}
 
   /* FORM */
   .signup{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:34px auto 0;max-width:480px}
@@ -226,7 +237,26 @@
 
 <div class="wrap">
   <header>
-    <div class="appicons reveal stagger">
+    <img class="hero-icon reveal" src="assets/icon.png" alt="Jikoku" />
+    <div class="bigtitle reveal">Jikoku</div>
+    <h1 class="reveal" style="font-size:clamp(22px,3.2vw,30px);font-weight:700;margin-top:14px">
+      <span class="ru-t">Один экран для всего,<br>что у тебя <span class="hl">запланировано</span></span>
+      <span class="en-t block">One window for everything<br>you have <span class="hl">planned</span></span>
+    </h1>
+    <p class="sub reveal">
+      <span class="ru-t">Личный iCloud и рабочий Exchange-календарь рядом с твоими напоминаниями — в спокойном нативном интерфейсе для Mac.</span>
+      <span class="en-t">Your personal iCloud and work Exchange calendar, side by side with your reminders — in one calm, native Mac app.</span>
+    </p>
+
+    <div class="pills reveal">
+      <a class="pill primary" href="#signup">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+        <span class="ru-t">Ранний доступ</span><span class="en-t">Early access</span>
+      </a>
+      <a class="pill ghost" href="#features"><span class="ru-t">Что внутри</span><span class="en-t">What's inside</span></a>
+    </div>
+
+    <div class="appicons reveal stagger" style="margin-top:48px">
       <div class="appitem">
         <div class="appicon"><img src="assets/app-reminders.png" alt="Reminders" /></div>
         <span class="applabel"><span class="ru-t">Напоминания</span><span class="en-t">Reminders</span></span>
@@ -242,15 +272,6 @@
         <span class="applabel">Exchange</span>
       </div>
     </div>
-
-    <h1 class="reveal">
-      <span class="ru-t">Один экран для всего,<br>что у тебя <span class="hl">запланировано</span></span>
-      <span class="en-t block">One window for everything<br>you have <span class="hl">planned</span></span>
-    </h1>
-    <p class="sub reveal">
-      <span class="ru-t">Личный iCloud и рабочий Exchange-календарь рядом с твоими напоминаниями — в спокойном нативном интерфейсе для Mac.</span>
-      <span class="en-t">Your personal iCloud and work Exchange calendar, side by side with your reminders — in one calm, native Mac app.</span>
-    </p>
 
     <!-- ============ EMAIL FORM (Formspree) ============ -->
     <!-- Sign up at https://formspree.io, create a form, put your ID below -->
@@ -306,7 +327,7 @@
 </section>
 
 <!-- FEATURES -->
-<section>
+<section id="features">
   <div class="wrap">
     <div class="eyebrow reveal"><span class="ru-t">ЧТО ВНУТРИ</span><span class="en-t">WHAT'S INSIDE</span></div>
     <h2 class="reveal"><span class="ru-t">Одно окно вместо четырёх</span><span class="en-t">One window instead of four</span></h2>

@@ -1,0 +1,19 @@
+# Jikoku
+
+> Jikoku is a native macOS app that brings Apple Calendar, Apple Reminders and your work Microsoft Exchange calendar together in one calm window. It runs entirely on your Mac and your own iCloud — no servers, no accounts.
+
+## Key facts
+- Platform: macOS 14 (Sonoma) or later, Apple Silicon.
+- Combines Apple Calendar + Apple Reminders + Microsoft Exchange (work) calendar in one window (day / week / month views).
+- Adds duration to reminders: drag a reminder into the calendar and stretch it to the time it needs. Apple Reminders normally have only a due date, no duration.
+- On-device AI task capture: dictate or type in plain language and a local neural network (Qwen2.5 via Apple MLX — no cloud, no Apple Intelligence required) turns it into tasks with date, time and duration, splitting several tasks in one phrase.
+- On-device speech recognition (WhisperKit) and a localized interface in 6 languages: Russian, English, Chinese, Japanese, Spanish, German.
+- Smart search across meetings and reminders; ask "what do I have next Friday?" to get the day's schedule, free slots and suggestions.
+- Light and dark themes follow the macOS appearance.
+- Privacy: fully on-device and the user's own iCloud; there are no Jikoku servers, logins or accounts.
+- Price: planned one-time purchase of about $29, no subscription, Exchange included (tentative).
+
+## Links
+- Home: https://glpkv.github.io/jikoku-landing/
+- Terms of Use: https://glpkv.github.io/jikoku-landing/termsofuse.html
+- Contact: Lapkovsky.g@gmail.com — Telegram https://t.me/glpkv — X https://x.com/glpkvsk

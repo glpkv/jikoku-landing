@@ -19,6 +19,77 @@
 <meta name="twitter:image" content="https://glpkv.github.io/jikoku-landing/assets/og.png?v=2" />
 <link rel="icon" type="image/png" href="assets/icon.png?v=sakura" />
 <link rel="apple-touch-icon" href="assets/icon.png?v=sakura" />
+<link rel="canonical" href="https://glpkv.github.io/jikoku-landing/" />
+<meta name="author" content="Gleb Lapkovsky" />
+<meta name="keywords" content="Jikoku, Mac calendar app, calendar reminders Exchange, macOS planner, on-device AI task capture, Apple Calendar Reminders, work Exchange calendar Mac, native macOS app" />
+<meta name="theme-color" content="#000000" />
+<meta property="og:site_name" content="Jikoku" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="ru_RU" />
+<meta property="og:locale:alternate" content="zh_CN" />
+<meta property="og:locale:alternate" content="ja_JP" />
+<meta property="og:locale:alternate" content="es_ES" />
+<meta property="og:locale:alternate" content="de_DE" />
+
+<!-- Structured data (GEO/SEO): helps AI search & Google understand and cite Jikoku -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Jikoku",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "macOS 14 Sonoma or later",
+      "description": "Jikoku is a native macOS app that brings Apple Calendar, Apple Reminders and your work Microsoft Exchange calendar together in one window. It adds duration to reminders via drag-and-drop and turns dictated or typed text into tasks using an on-device AI — no servers, no accounts.",
+      "url": "https://glpkv.github.io/jikoku-landing/",
+      "image": "https://glpkv.github.io/jikoku-landing/assets/og.png?v=2",
+      "screenshot": "https://glpkv.github.io/jikoku-landing/assets/screenshot.png?v=dark",
+      "inLanguage": ["en","ru","zh","ja","es","de"],
+      "featureList": [
+        "Apple Calendar and Reminders in one timeline (day, week, month)",
+        "Work Microsoft Exchange calendar next to your personal iCloud one",
+        "Drag a reminder into the day and give it a duration",
+        "On-device AI that turns dictation or text into tasks with date, time and duration",
+        "Local speech recognition and interface in 6 languages",
+        "Light and dark themes that follow macOS",
+        "Runs fully on-device and your own iCloud — no servers, no accounts"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "29",
+        "priceCurrency": "USD",
+        "description": "One-time purchase, no subscription (price tentative)"
+      },
+      "author": { "@type": "Person", "name": "Gleb Lapkovsky", "url": "https://x.com/glpkvsk" }
+    },
+    {
+      "@type": "Organization",
+      "name": "Jikoku",
+      "url": "https://glpkv.github.io/jikoku-landing/",
+      "logo": "https://glpkv.github.io/jikoku-landing/assets/icon.png?v=sakura",
+      "sameAs": ["https://x.com/glpkvsk","https://t.me/glpkv"]
+    },
+    {
+      "@type": "WebSite",
+      "name": "Jikoku",
+      "url": "https://glpkv.github.io/jikoku-landing/",
+      "inLanguage": ["en","ru","zh","ja","es","de"]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is Jikoku?", "acceptedAnswer": { "@type": "Answer", "text": "Jikoku is a native macOS app that brings your Apple Calendar, Apple Reminders and your work Microsoft Exchange calendar together in one calm window." } },
+        { "@type": "Question", "name": "Does Jikoku use any servers or accounts?", "acceptedAnswer": { "@type": "Answer", "text": "No. Jikoku runs entirely on your Mac and your own iCloud. There are no Jikoku servers, logins or accounts, and your personal data never leaves your device." } },
+        { "@type": "Question", "name": "How does the AI task capture work?", "acceptedAnswer": { "@type": "Answer", "text": "You dictate or type your tasks and meetings in plain language and an on-device neural network — running on your Mac, with no cloud and without Apple Intelligence — turns them into tasks with date, time and duration. Several tasks in one phrase are split apart." } },
+        { "@type": "Question", "name": "Does Jikoku work with Microsoft Exchange or Outlook?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your work Exchange calendar sits right next to your personal iCloud calendar and reminders, without a heavy corporate client." } },
+        { "@type": "Question", "name": "Which languages does Jikoku support?", "acceptedAnswer": { "@type": "Answer", "text": "The interface and on-device dictation support Russian, English, Chinese, Japanese, Spanish and German." } },
+        { "@type": "Question", "name": "How much does Jikoku cost?", "acceptedAnswer": { "@type": "Answer", "text": "Jikoku is planned as a one-time purchase of about $29 with no subscription. Exchange support is included. The price is tentative." } }
+      ]
+    }
+  ]
+}
+</script>
 
 <!-- ============================================================= -->
 <!--  ANALYTICS — visits & clicks (GoatCounter, free)              -->
@@ -223,6 +294,15 @@
   .contacts a:hover{border-color:var(--accent);transform:translateY(-2px)}
   .contacts svg{width:22px;height:22px}
   .finefoot{max-width:680px;margin:18px auto 0;font-size:12px;line-height:1.7;color:#6a6a72}
+  /* FAQ */
+  .faq{max-width:720px;margin:38px auto 0;text-align:left}
+  .faq details{border-top:1px solid var(--line);padding:18px 2px}
+  .faq details:last-child{border-bottom:1px solid var(--line)}
+  .faq summary{font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:18px;color:var(--txt)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--muted);font-weight:400;flex:none}
+  .faq details[open] summary::after{content:"–"}
+  .faq p{color:var(--muted);font-size:15px;margin-top:12px}
 
   @media(max-width:900px){
     /* welcome/hero-баннер: картинка сверху ровным баннером, текст под ней по центру */
@@ -460,6 +540,40 @@
   </div>
 </section>
 
+<!-- FAQ -->
+<section class="strip">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow reveal"><span class="ru-t">ВОПРОСЫ</span><span class="en-t">FAQ</span></div>
+    <h2 class="reveal"><span class="ru-t">Частые вопросы</span><span class="en-t">Frequently asked questions</span></h2>
+    <div class="faq reveal">
+      <details>
+        <summary><span class="ru-t">Что такое Jikoku?</span><span class="en-t">What is Jikoku?</span></summary>
+        <p><span class="ru-t">Jikoku — нативное приложение для macOS, которое объединяет Apple Календарь, Напоминания и рабочий Exchange-календарь в одном окне.</span><span class="en-t">Jikoku is a native macOS app that brings Apple Calendar, Reminders and your work Exchange calendar together in one window.</span></p>
+      </details>
+      <details>
+        <summary><span class="ru-t">Использует ли Jikoku серверы или аккаунты?</span><span class="en-t">Does Jikoku use any servers or accounts?</span></summary>
+        <p><span class="ru-t">Нет. Всё работает на твоём Mac и в твоём iCloud — без серверов, логинов и аккаунтов.</span><span class="en-t">No. Everything runs on your Mac and your own iCloud — no servers, logins or accounts.</span></p>
+      </details>
+      <details>
+        <summary><span class="ru-t">Как работает ИИ-захват задач?</span><span class="en-t">How does the AI task capture work?</span></summary>
+        <p><span class="ru-t">Ты диктуешь или печатаешь обычной речью, а локальная нейросеть на твоём Mac (без облака и без Apple Intelligence) превращает это в задачи с датой, временем и длительностью.</span><span class="en-t">You dictate or type in plain language and an on-device neural network on your Mac (no cloud, no Apple Intelligence) turns it into tasks with date, time and duration.</span></p>
+      </details>
+      <details>
+        <summary><span class="ru-t">Работает ли с Exchange / Outlook?</span><span class="en-t">Does it work with Exchange / Outlook?</span></summary>
+        <p><span class="ru-t">Да, рабочий Exchange-календарь стоит рядом с личным iCloud.</span><span class="en-t">Yes, your work Exchange calendar sits next to your personal iCloud one.</span></p>
+      </details>
+      <details>
+        <summary><span class="ru-t">Какие языки поддерживаются?</span><span class="en-t">Which languages are supported?</span></summary>
+        <p><span class="ru-t">Интерфейс и диктовка — на русском, английском, китайском, японском, испанском и немецком.</span><span class="en-t">The interface and dictation support Russian, English, Chinese, Japanese, Spanish and German.</span></p>
+      </details>
+      <details>
+        <summary><span class="ru-t">Сколько стоит Jikoku?</span><span class="en-t">How much does Jikoku cost?</span></summary>
+        <p><span class="ru-t">Планируется разовая покупка около $29 без подписки, Exchange включён (цена ориентировочная).</span><span class="en-t">A one-time purchase of about $29, no subscription, Exchange included (price tentative).</span></p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <div class="contacts">
@@ -550,7 +664,21 @@
 "Light &amp; dark — follows your system":{zh:"浅色与深色——跟随系统",ja:"ライト＆ダーク——システムに追従",es:"Claro y oscuro — sigue tu sistema",de:"Hell &amp; dunkel — folgt deinem System"},
 "Jikoku follows your macOS appearance automatically, or set the theme by hand. Both feel native.":{zh:"Jikoku 自动跟随 macOS 外观，也可手动切换主题。两种都如原生般自然。",ja:"JikokuはmacOSの外観に自動で追従し、手動でも切り替え可能。どちらもネイティブのよう。",es:"Jikoku sigue la apariencia de macOS automáticamente, o cambia el tema a mano. Ambos se sienten nativos.",de:"Jikoku folgt automatisch dem macOS-Erscheinungsbild oder du stellst das Design selbst ein. Beide wirken nativ."},
 "☀︎ Light":{zh:"☀︎ 浅色",ja:"☀︎ ライト",es:"☀︎ Claro",de:"☀︎ Hell"},
-"☾ Dark":{zh:"☾ 深色",ja:"☾ ダーク",es:"☾ Oscuro",de:"☾ Dunkel"}
+"☾ Dark":{zh:"☾ 深色",ja:"☾ ダーク",es:"☾ Oscuro",de:"☾ Dunkel"},
+"FAQ":{zh:"常见问题",ja:"よくある質問",es:"PREGUNTAS FRECUENTES",de:"HÄUFIGE FRAGEN"},
+"Frequently asked questions":{zh:"常见问题",ja:"よくある質問",es:"Preguntas frecuentes",de:"Häufige Fragen"},
+"What is Jikoku?":{zh:"Jikoku 是什么？",ja:"Jikokuとは？",es:"¿Qué es Jikoku?",de:"Was ist Jikoku?"},
+"Jikoku is a native macOS app that brings Apple Calendar, Reminders and your work Exchange calendar together in one window.":{zh:"Jikoku 是一款原生 macOS 应用，把 Apple 日历、提醒事项和你的工作 Exchange 日历整合到一个窗口里。",ja:"JikokuはAppleカレンダー、リマインダー、仕事のExchangeカレンダーを1つの画面にまとめるネイティブmacOSアプリです。",es:"Jikoku es una app nativa de macOS que reúne el Calendario de Apple, los Recordatorios y tu calendario de Exchange del trabajo en una sola ventana.",de:"Jikoku ist eine native macOS-App, die Apple Kalender, Erinnerungen und deinen beruflichen Exchange-Kalender in einem Fenster vereint."},
+"Does Jikoku use any servers or accounts?":{zh:"Jikoku 会使用服务器或账户吗？",ja:"Jikokuはサーバーやアカウントを使いますか？",es:"¿Jikoku usa servidores o cuentas?",de:"Nutzt Jikoku Server oder Konten?"},
+"No. Everything runs on your Mac and your own iCloud — no servers, logins or accounts.":{zh:"不会。一切都在你的 Mac 和你自己的 iCloud 上运行——没有服务器、登录或账户。",ja:"いいえ。すべてあなたのMacとあなた自身のiCloudで動作します——サーバー・ログイン・アカウントはありません。",es:"No. Todo funciona en tu Mac y tu propio iCloud — sin servidores, inicios de sesión ni cuentas.",de:"Nein. Alles läuft auf deinem Mac und deiner eigenen iCloud – keine Server, Logins oder Konten."},
+"How does the AI task capture work?":{zh:"AI 任务识别如何工作？",ja:"AIのタスク取り込みはどう動きますか？",es:"¿Cómo funciona la captura de tareas con IA?",de:"Wie funktioniert die KI-Aufgabenerfassung?"},
+"You dictate or type in plain language and an on-device neural network on your Mac (no cloud, no Apple Intelligence) turns it into tasks with date, time and duration.":{zh:"你用日常语言口述或输入，Mac 上的本地神经网络（无云端、无需 Apple Intelligence）会把它变成带日期、时间和时长的任务。",ja:"普通の言葉で話す・入力すると、Mac上のローカルなニューラルネット（クラウド不要、Apple Intelligence不要）が日付・時刻・長さ付きのタスクに変換します。",es:"Dictas o escribes en lenguaje normal y una red neuronal en tu Mac (sin nube, sin Apple Intelligence) lo convierte en tareas con fecha, hora y duración.",de:"Du diktierst oder tippst in normaler Sprache, und ein neuronales Netz auf deinem Mac (ohne Cloud, ohne Apple Intelligence) macht daraus Aufgaben mit Datum, Zeit und Dauer."},
+"Does it work with Exchange / Outlook?":{zh:"支持 Exchange / Outlook 吗？",ja:"Exchange／Outlookに対応していますか？",es:"¿Funciona con Exchange / Outlook?",de:"Funktioniert es mit Exchange / Outlook?"},
+"Yes, your work Exchange calendar sits next to your personal iCloud one.":{zh:"支持，你的工作 Exchange 日历就放在个人 iCloud 日历旁边。",ja:"はい、仕事のExchangeカレンダーが個人のiCloudカレンダーの隣に並びます。",es:"Sí, tu calendario de Exchange del trabajo se coloca junto al personal de iCloud.",de:"Ja, dein beruflicher Exchange-Kalender steht direkt neben dem privaten iCloud-Kalender."},
+"Which languages are supported?":{zh:"支持哪些语言？",ja:"対応言語は？",es:"¿Qué idiomas admite?",de:"Welche Sprachen werden unterstützt?"},
+"The interface and dictation support Russian, English, Chinese, Japanese, Spanish and German.":{zh:"界面和口述支持俄语、英语、中文、日语、西班牙语和德语。",ja:"インターフェースと音声入力はロシア語・英語・中国語・日本語・スペイン語・ドイツ語に対応。",es:"La interfaz y el dictado admiten ruso, inglés, chino, japonés, español y alemán.",de:"Oberfläche und Diktat unterstützen Russisch, Englisch, Chinesisch, Japanisch, Spanisch und Deutsch."},
+"How much does Jikoku cost?":{zh:"Jikoku 多少钱？",ja:"Jikokuの価格は？",es:"¿Cuánto cuesta Jikoku?",de:"Was kostet Jikoku?"},
+"A one-time purchase of about $29, no subscription, Exchange included (price tentative).":{zh:"一次性购买约 $29，无订阅，含 Exchange（价格暂定）。",ja:"約$29の買い切り、サブスクなし、Exchange込み（価格は仮）。",es:"Una compra única de unos $29, sin suscripción, Exchange incluido (precio tentativo).",de:"Einmalkauf von etwa $29, kein Abo, Exchange inklusive (Preis vorläufig)."}
   };
   function applyLang(lang){
     var isRu = lang==='ru';

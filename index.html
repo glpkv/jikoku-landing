@@ -161,6 +161,12 @@
   /* real cropped screenshot for the drag & duration feature */
   .demoshot{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0d0d0f}
   .demoshot img,.demoshot video{display:block;width:100%}
+  /* light & dark theme block */
+  .themes{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:46px}
+  .themeshot{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0d0d0f}
+  .themeshot img{display:block;width:100%}
+  .themeshot .lbl{font-size:13px;font-weight:600;color:var(--muted);padding:12px 16px;border-top:1px solid var(--line)}
+  @media(max-width:760px){.themes{grid-template-columns:1fr}}
 
   /* PRICING */
   .ptier{background:var(--panel);border:1px solid var(--accent);border-radius:var(--radius);padding:34px;text-align:center;
@@ -376,6 +382,25 @@
   </div>
 </section>
 
+<!-- LIGHT & DARK -->
+<section>
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow reveal"><span class="ru-t">СВЕТЛАЯ И ТЁМНАЯ</span><span class="en-t">LIGHT &amp; DARK</span></div>
+    <h2 class="reveal"><span class="ru-t">Светлая и тёмная — по системе</span><span class="en-t">Light &amp; dark — follows your system</span></h2>
+    <p class="lead reveal"><span class="ru-t">Jikoku подхватывает оформление macOS автоматически или ставит тему вручную. Обе выглядят как родные.</span><span class="en-t">Jikoku follows your macOS appearance automatically, or set the theme by hand. Both feel native.</span></p>
+    <div class="themes reveal stagger">
+      <div class="themeshot">
+        <img src="assets/screenshot-light.png" alt="Jikoku light theme" loading="lazy" />
+        <div class="lbl"><span class="ru-t">☀︎ Светлая</span><span class="en-t">☀︎ Light</span></div>
+      </div>
+      <div class="themeshot">
+        <img src="assets/screenshot.png?v=dark" alt="Jikoku dark theme" loading="lazy" />
+        <div class="lbl"><span class="ru-t">☾ Тёмная</span><span class="en-t">☾ Dark</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PRICING -->
 <section class="strip">
   <div class="wrap">
@@ -520,7 +545,12 @@
 "Interface &amp; dictation in 6 languages":{zh:"界面与口述，支持 6 种语言",ja:"インターフェースと音声入力が6言語対応",es:"Interfaz y dictado en 6 idiomas",de:"Oberfläche &amp; Diktat in 6 Sprachen"},
 "The app and on-device speech recognition understand:":{zh:"应用与本地语音识别支持：",ja:"アプリとオンデバイス音声認識が対応：",es:"La app y el reconocimiento de voz en el dispositivo entienden:",de:"Die App und die Spracherkennung auf dem Gerät verstehen:"},
 "a planner for macOS · Made on a Mac, for Mac":{zh:"macOS 日程应用 · 由 Mac 打造，为 Mac 而生",ja:"macOSのプランナー · Macで作り、Macのために",es:"un planificador para macOS · Hecho en un Mac, para Mac",de:"ein Planer für macOS · Auf dem Mac gemacht, für den Mac"},
-"Terms of Use":{zh:"使用条款",ja:"利用規約",es:"Términos de uso",de:"Nutzungsbedingungen"}
+"Terms of Use":{zh:"使用条款",ja:"利用規約",es:"Términos de uso",de:"Nutzungsbedingungen"},
+"LIGHT &amp; DARK":{zh:"浅色与深色",ja:"ライト＆ダーク",es:"CLARO Y OSCURO",de:"HELL &amp; DUNKEL"},
+"Light &amp; dark — follows your system":{zh:"浅色与深色——跟随系统",ja:"ライト＆ダーク——システムに追従",es:"Claro y oscuro — sigue tu sistema",de:"Hell &amp; dunkel — folgt deinem System"},
+"Jikoku follows your macOS appearance automatically, or set the theme by hand. Both feel native.":{zh:"Jikoku 自动跟随 macOS 外观，也可手动切换主题。两种都如原生般自然。",ja:"JikokuはmacOSの外観に自動で追従し、手動でも切り替え可能。どちらもネイティブのよう。",es:"Jikoku sigue la apariencia de macOS automáticamente, o cambia el tema a mano. Ambos se sienten nativos.",de:"Jikoku folgt automatisch dem macOS-Erscheinungsbild oder du stellst das Design selbst ein. Beide wirken nativ."},
+"☀︎ Light":{zh:"☀︎ 浅色",ja:"☀︎ ライト",es:"☀︎ Claro",de:"☀︎ Hell"},
+"☾ Dark":{zh:"☾ 深色",ja:"☾ ダーク",es:"☾ Oscuro",de:"☾ Dunkel"}
   };
   function applyLang(lang){
     var isRu = lang==='ru';

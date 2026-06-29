@@ -6,7 +6,7 @@
 - Platform: macOS 14 (Sonoma) or later, Apple Silicon.
 - Combines Apple Calendar + Apple Reminders + Microsoft Exchange (work) calendar in one window (day / week / month views).
 - Adds duration to reminders: drag a reminder into the calendar and stretch it to the time it needs. Apple Reminders normally have only a due date, no duration.
-- On-device AI task capture: dictate or type in plain language and a local neural network (Qwen2.5 via Apple MLX — no cloud, no Apple Intelligence required) turns it into tasks with date, time and duration, splitting several tasks in one phrase.
+- On-device AI task capture: dictate or type in plain language and a local neural network (Qwen3 via Apple MLX — no cloud, no Apple Intelligence required) turns it into tasks with date, time and duration, splitting several tasks in one phrase.
 - On-device speech recognition (WhisperKit) and a localized interface in 6 languages: Russian, English, Chinese, Japanese, Spanish, German.
 - Smart search across meetings and reminders; ask "what do I have next Friday?" to get the day's schedule, free slots and suggestions.
 - Light and dark themes follow the macOS appearance.

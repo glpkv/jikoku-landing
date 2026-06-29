@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jikoku — Privacy Policy</title>
+<meta name="description" content="Jikoku's privacy policy: the app runs entirely on your Mac and your own iCloud. No servers, no accounts, no data collection." />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",system-ui,sans-serif;
+    background:#000;color:#f5f5f7;line-height:1.65;-webkit-font-smoothing:antialiased;padding:0 24px 80px}
+  .wrap{max-width:760px;margin:0 auto}
+  .top{display:flex;align-items:center;justify-content:space-between;padding:28px 0 8px}
+  .back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#f5f5f7;
+    border:1px solid #222226;border-radius:12px;padding:9px 16px;font-size:14px;font-weight:600;transition:border-color .2s}
+  .back:hover{border-color:#7c8cf8}
+  .back svg{width:16px;height:16px}
+  h1{font-size:34px;font-weight:800;letter-spacing:-.02em;margin:36px 0 6px}
+  .upd{color:#9a9aa3;font-size:14px;margin-bottom:28px}
+  h2{font-size:19px;font-weight:700;margin:30px 0 8px}
+  p,li{color:#c7c7cf;font-size:15px}
+  ul{margin:8px 0 0 20px}
+  li{margin:4px 0}
+  a{color:#7c8cf8}
+  .lead{color:#e3e3e8;font-size:16px}
+  .fine{color:#6a6a72;font-size:12px;line-height:1.7;margin-top:40px;border-top:1px solid #222226;padding-top:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="back" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      Back to home
+    </a>
+  </div>
+
+  <h1>Privacy Policy</h1>
+  <div class="upd">Last updated: June 2026</div>
+
+  <p class="lead">Short version: Jikoku runs entirely on your Mac and your own iCloud. There are no Jikoku servers, no accounts, and no analytics. We do not collect, transmit, or store your personal content. Period.</p>
+
+  <h2>1. No data collection</h2>
+  <p>Jikoku has no backend. We do not operate servers that receive your data, we do not require an account or login, and we do not run any tracking or analytics inside the app. Your calendars, reminders, notes, meeting recordings, transcripts, and contacts never leave your device except through Apple’s own iCloud and Exchange sync, which you control.</p>
+
+  <h2>2. Where your data lives</h2>
+  <ul>
+    <li><b>Calendars &amp; reminders</b> are accessed through Apple’s EventKit and synced only via your own iCloud account.</li>
+    <li><b>Notes</b> are read and written through the Apple Notes app on your Mac; they sync via your iCloud, not through us.</li>
+    <li><b>Task duration metadata</b> (Jikoku’s addition to reminders) is stored locally on your device.</li>
+    <li><b>Invite account credentials</b> (e.g. an Exchange or iCloud app password you enter to send invitations) are stored in your Mac’s Keychain and used only to talk directly to those services.</li>
+  </ul>
+
+  <h2>3. On-device AI</h2>
+  <p>Speech recognition, meeting transcription, speaker labelling, note summaries, and task extraction are performed entirely on your Mac using on-device models (WhisperKit and a local large-language model via Apple MLX). Your audio and text are processed locally and are not sent to any cloud service, including Apple Intelligence.</p>
+
+  <h2>4. System permissions</h2>
+  <p>Jikoku asks for macOS permissions only to provide its features, and only the system, not Jikoku, holds the granted access:</p>
+  <ul>
+    <li><b>Calendar &amp; Reminders</b> — to show and edit your events and tasks.</li>
+    <li><b>Microphone</b> — for voice dictation and meeting recording.</li>
+    <li><b>Screen Recording</b> — only if you enable capturing system audio for online calls.</li>
+    <li><b>Contacts</b> — to suggest guests for invitations and speakers for transcripts. Read locally; never uploaded.</li>
+    <li><b>Apple Events / Automation (Notes, etc.)</b> — to read and write your notes through the Notes app.</li>
+  </ul>
+  <p>You can review or revoke any of these at any time in System Settings → Privacy &amp; Security.</p>
+
+  <h2>5. Network use</h2>
+  <p>The only network connections Jikoku makes are directly to the services you configure — Apple iCloud (CalDAV) and your work Microsoft Exchange server — to read calendars and send meeting invitations on your behalf. There is no Jikoku-operated server in between.</p>
+
+  <h2>6. Children</h2>
+  <p>Jikoku is a general-purpose productivity app and is not directed to children under 13. It collects no data from anyone.</p>
+
+  <h2>7. Changes to this policy</h2>
+  <p>We may update this policy from time to time. The “last updated” date above reflects the current version. Material changes will be reflected here.</p>
+
+  <h2>8. Contact</h2>
+  <p>Questions about privacy? Email <a href="mailto:Lapkovsky.g@gmail.com">Lapkovsky.g@gmail.com</a> or reach out on Telegram <a href="https://t.me/glpkv">@glpkv</a>.</p>
+
+  <div class="fine">
+    © 2026 Gleb Lapkovsky. All rights reserved.<br>
+    Apple, macOS, Mac and iCloud are trademarks of Apple Inc. Jikoku is an independent app, not affiliated with Apple Inc.
+  </div>
+</div>
+</body>
+</html>

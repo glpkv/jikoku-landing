@@ -7,7 +7,7 @@
 <meta name="description" content="Apple Calendar, Reminders and your work Exchange in one beautiful native macOS window." />
 
 <meta property="og:title" content="Jikoku — Calendar, Reminders & Exchange in one window" />
-<meta property="og:description" content="Personal iCloud and work Exchange side by side. Native, calm, made for Mac. One-time $29." />
+<meta property="og:description" content="Personal iCloud and work Exchange side by side. Native, calm, made for Mac. One-time $49." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://glpkv.github.io/jikoku-landing/" />
 <meta property="og:image" content="https://glpkv.github.io/jikoku-landing/assets/og.png?v=2" />
@@ -20,6 +20,8 @@
 <link rel="icon" type="image/png" href="assets/icon.png?v=sakura" />
 <link rel="apple-touch-icon" href="assets/icon.png?v=sakura" />
 <link rel="canonical" href="https://glpkv.github.io/jikoku-landing/" />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,401,500,501,700,701,900&display=swap" />
 <meta name="author" content="Gleb Lapkovsky" />
 <meta name="keywords" content="Jikoku, Mac calendar app, calendar reminders Exchange, macOS planner, on-device AI task capture, Apple Calendar Reminders, work Exchange calendar Mac, native macOS app" />
 <meta name="theme-color" content="#000000" />
@@ -41,7 +43,7 @@
       "name": "Jikoku",
       "applicationCategory": "ProductivityApplication",
       "operatingSystem": "macOS 14 Sonoma or later",
-      "description": "Jikoku is a native macOS app that brings Apple Calendar, Apple Reminders and your work Microsoft Exchange calendar together in one window. It adds duration to reminders via drag-and-drop and turns dictated or typed text into tasks using an on-device AI — no servers, no accounts.",
+      "description": "Jikoku is a native macOS app that brings Apple Calendar, Apple Reminders and your work Microsoft Exchange calendar together in one window. It adds duration to reminders via drag-and-drop, turns dictated or typed text into tasks, auto-schedules them into free slots, records and transcribes meetings, summarises notes and extracts tasks from them, and sends meeting invites from your free slots — all using an on-device AI, no servers, no accounts.",
       "url": "https://glpkv.github.io/jikoku-landing/",
       "image": "https://glpkv.github.io/jikoku-landing/assets/og.png?v=2",
       "screenshot": "https://glpkv.github.io/jikoku-landing/assets/screenshot.png?v=dark",
@@ -51,13 +53,17 @@
         "Work Microsoft Exchange calendar next to your personal iCloud one",
         "Drag a reminder into the day and give it a duration",
         "On-device AI that turns dictation or text into tasks with date, time and duration",
+        "Auto-scheduling: finds free slots and places tasks into the calendar with duration and buffers",
+        "Notes with AI summaries and task extraction from a note's text (via Apple Notes)",
+        "On-device meeting recording and transcription with speaker labels, summary and tasks",
+        "Send meeting invites from your free slots (iCloud / Exchange)",
         "Local speech recognition and interface in 6 languages",
         "Light and dark themes that follow macOS",
         "Runs fully on-device and your own iCloud — no servers, no accounts"
       ],
       "offers": {
         "@type": "Offer",
-        "price": "29",
+        "price": "49",
         "priceCurrency": "USD",
         "description": "One-time purchase, no subscription (price tentative)"
       },
@@ -84,7 +90,10 @@
         { "@type": "Question", "name": "How does the AI task capture work?", "acceptedAnswer": { "@type": "Answer", "text": "You dictate or type your tasks and meetings in plain language and an on-device neural network — running on your Mac, with no cloud and without Apple Intelligence — turns them into tasks with date, time and duration. Several tasks in one phrase are split apart." } },
         { "@type": "Question", "name": "Does Jikoku work with Microsoft Exchange or Outlook?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your work Exchange calendar sits right next to your personal iCloud calendar and reminders, without a heavy corporate client." } },
         { "@type": "Question", "name": "Which languages does Jikoku support?", "acceptedAnswer": { "@type": "Answer", "text": "The interface and on-device dictation support Russian, English, Chinese, Japanese, Spanish and German." } },
-        { "@type": "Question", "name": "How much does Jikoku cost?", "acceptedAnswer": { "@type": "Answer", "text": "Jikoku is planned as a one-time purchase of about $29 with no subscription. Exchange support is included. The price is tentative." } }
+        { "@type": "Question", "name": "Are there notes, and can it extract tasks from them?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Notes live next to your calendar via Apple Notes. The on-device AI summarises a note and extracts concrete tasks from its text, which you can send to your reminders in one click." } },
+        { "@type": "Question", "name": "Can Jikoku record and transcribe meetings?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, right in the app and fully on-device: speech recognition, speaker labels, a summary and action items. Recording does not block the app — you can keep working while it runs, and the result is saved to a note." } },
+        { "@type": "Question", "name": "How does Jikoku help plan the day?", "acceptedAnswer": { "@type": "Answer", "text": "It auto-schedules tasks into free calendar slots respecting duration and buffers, with a preview before writing. It can also send someone your free slots so they pick a time and receive a real iCloud or Exchange invite." } },
+        { "@type": "Question", "name": "How much does Jikoku cost?", "acceptedAnswer": { "@type": "Answer", "text": "Jikoku is planned as a one-time purchase of about $49 with no subscription. Exchange support is included. The price is tentative." } }
       ]
     }
   ]
@@ -102,22 +111,29 @@
 
 <style>
   :root{
-    --bg:#000000; --bg2:#000000; --panel:#0d0d0f; --panel2:#161618;
-    --txt:#f5f5f7; --muted:#9a9aa3; --line:#222226;
-    --accent:#7c8cf8; --accent2:#b08cf8; --ok:#34c77b; --amber:#e2920b;
-    --radius:18px; --maxw:1080px;
-    --shadow:none;
-    --shadow-lg:none;
+    /* warm maroon/sakura palette (theboring-style) */
+    --bg:#0a0506; --bg2:#0e0708; --panel:#1a0e11; --panel2:#231215;
+    --txt:#f7f0ee; --muted:#b39a99; --line:#33181c;
+    --accent:#ff5a6e; --accent2:#ff8aa0; --ok:#34c77b; --amber:#e2920b;
+    --cream:#ecdfd4; --cream-ink:#2a1518;
+    --glow:rgba(255,90,110,.22); --glow2:rgba(255,138,160,.16);
+    --spot:rgba(255,225,210,.9);
+    --radius:30px; --maxw:1240px;
+    --sans:"Satoshi",-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Inter,system-ui,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Inter,system-ui,sans-serif;
+    font-family:var(--sans);
     background:var(--bg);
-    color:var(--txt);line-height:1.55;-webkit-font-smoothing:antialiased;
+    color:var(--txt);line-height:1.5;-webkit-font-smoothing:antialiased;
     min-height:100vh;overflow-x:hidden;
+    letter-spacing:-.01em;
   }
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  /* italic accent — same font, italic (theboring-style), soft gradient */
+  .serif{font-family:var(--sans);font-style:italic;font-weight:500;letter-spacing:-.02em;
+    background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
 
   /* i18n: default RU; body.en swaps */
   .en-t{display:none}
@@ -138,9 +154,40 @@
   .stagger.in > *:nth-child(4){transition-delay:.22s}
   .stagger.in > *:nth-child(5){transition-delay:.28s}
   .stagger.in > *:nth-child(6){transition-delay:.34s}
+  .reveal.scale{transform:translateY(30px) scale(.97)}
+  .reveal.scale.in{transform:none}
+  @keyframes glowpulse{0%,100%{opacity:.65;transform:translate(-50%,0) scale(1)}50%{opacity:1;transform:translate(-50%,0) scale(1.08)}}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
   @media(prefers-reduced-motion:reduce){
     .reveal,.stagger>*{opacity:1!important;transform:none!important;transition:none!important}
+    .spotlight{animation:none!important}
   }
+
+  /* ---- theatrical curtain + spotlight cone (theboring-style) ---- */
+  .stage{position:absolute;left:50%;margin-left:-50vw;width:100vw;top:0;height:820px;overflow:hidden;pointer-events:none;z-index:0}
+  /* red velvet curtain with vertical folds, dark at edges */
+  .stage .curtain{position:absolute;inset:0;
+    background:
+      radial-gradient(120% 80% at 50% -10%, rgba(120,18,30,.55), transparent 60%),
+      repeating-linear-gradient(90deg,
+        #1d0709 0px, #3a0d14 26px, #5a141f 52px, #3a0d14 78px, #1d0709 104px),
+      linear-gradient(180deg, #2a0a10 0%, #14060a 70%, var(--bg) 100%);
+    -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 62%,transparent 100%);
+            mask-image:linear-gradient(180deg,#000 0%,#000 62%,transparent 100%);
+    opacity:.9}
+  .stage .vignette{position:absolute;inset:0;
+    background:radial-gradient(90% 70% at 50% 0%, transparent 40%, rgba(0,0,0,.55) 100%)}
+  /* spotlight cone beaming down from top-center */
+  .stage .cone{position:absolute;left:50%;top:-60px;transform:translateX(-50%);
+    width:520px;height:560px;
+    background:linear-gradient(180deg, var(--spot), rgba(255,225,210,0) 78%);
+    clip-path:polygon(42% 0, 58% 0, 100% 100%, 0% 100%);
+    filter:blur(22px);opacity:.5;animation:glowpulse 7s ease-in-out infinite}
+  .stage .pool{position:absolute;left:50%;top:60px;transform:translateX(-50%);
+    width:820px;max-width:120vw;height:520px;border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(40px);opacity:.7;animation:glowpulse 9s ease-in-out infinite;animation-delay:-2s}
+  @media(max-width:680px){.stage .curtain{background-size:auto}.stage .cone{width:60vw}}
 
   /* NAV */
   nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0;position:sticky;top:0;z-index:20;
@@ -159,7 +206,11 @@
   .lang button.active{background:var(--panel2);color:var(--txt)}
 
   /* HERO */
-  header{padding:60px 0 40px;text-align:center}
+  header{padding:60px 0 40px;text-align:center;position:relative;z-index:1}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 15px;border-radius:999px;
+    border:1px solid var(--line);background:rgba(255,255,255,.02);font-size:13px;font-weight:600;color:var(--muted);
+    margin-bottom:26px}
+  .hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok)}
   /* macOS-style app icons row */
   .appicons{display:flex;align-items:flex-start;justify-content:center;gap:20px;margin-bottom:36px;flex-wrap:wrap}
   .appicons .plus{color:var(--muted);font-size:24px;font-weight:300;line-height:64px}
@@ -169,18 +220,19 @@
   .appitem:hover .appicon{transform:translateY(-4px) scale(1.05)}
   .applabel{font-size:13px;font-weight:600;color:var(--txt)}
 
-  h1{font-size:clamp(34px,6vw,58px);line-height:1.06;font-weight:800;letter-spacing:-.02em;color:var(--txt)}
+  h1{font-size:clamp(46px,9vw,96px);line-height:.98;font-weight:500;letter-spacing:-.035em;color:var(--txt)}
   h1 .hl{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .sub{font-size:clamp(17px,2.3vw,21px);color:var(--muted);max-width:600px;margin:22px auto 0}
+  .sub{font-size:clamp(18px,2.4vw,24px);color:var(--muted);max-width:680px;margin:28px auto 0;font-weight:400}
   /* minimal hero (dynamiclake-style) */
   .hero-icon{width:96px;height:96px;display:block;margin:10px auto 20px;border-radius:22px}
   .bigtitle{font-size:clamp(54px,11vw,118px);font-weight:800;letter-spacing:-.03em;line-height:.94;color:var(--txt)}
   .pills{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:32px 0 0}
   .pill{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:999px;
     font-size:15px;font-weight:650;text-decoration:none;transition:transform .15s,border-color .2s}
-  .pill.primary{background:#fff;color:#000}
-  .pill.ghost{border:1px solid var(--line);color:var(--txt)}
+  .pill.primary{background:#fff;color:#000;box-shadow:0 8px 30px rgba(255,255,255,.14)}
+  .pill.ghost{border:1px solid var(--line);color:var(--txt);background:rgba(255,255,255,.02)}
   .pill:hover{transform:translateY(-2px)}
+  .pill.primary:hover{box-shadow:0 12px 38px rgba(255,255,255,.22)}
   .pill.ghost:hover{border-color:var(--accent)}
   .pill svg{width:16px;height:16px}
 
@@ -192,39 +244,67 @@
   .btn{cursor:pointer;border:none;font-size:15px;font-weight:650;color:#fff;
     background:linear-gradient(90deg,var(--accent),var(--accent2));
     padding:15px 26px;border-radius:14px;transition:transform .15s,box-shadow .2s;
-    box-shadow:0 8px 24px rgba(91,118,240,.32)}
-  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(91,118,240,.42)}
+    box-shadow:0 8px 24px rgba(255,90,110,.32)}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(255,90,110,.42)}
   .formnote{font-size:13px;color:var(--muted);margin-top:14px}
   .thanks{display:none;color:var(--ok);font-weight:600;margin-top:22px;font-size:17px}
 
   /* SCREENSHOT */
-  .shot{margin:54px auto 0;max-width:920px;border-radius:14px;
-    filter:drop-shadow(0 6px 16px rgba(20,28,55,.06))}
-  .shot img{display:block;width:100%}
-  .caption{font-size:13px;color:var(--muted);margin-top:14px;text-align:center}
+  .shot{margin:54px auto 0;max-width:980px;border-radius:18px;padding:10px;position:relative;
+    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.015));
+    border:1px solid var(--line);box-shadow:0 40px 120px -40px var(--glow)}
+  .shot img{display:block;width:100%;border-radius:12px}
+  .caption{font-size:13px;color:var(--muted);margin-top:16px;text-align:center}
 
   /* SECTIONS */
-  section{padding:84px 0}
-  .eyebrow{color:var(--accent);font-size:14px;font-weight:700;text-align:center;margin-bottom:12px;letter-spacing:.02em}
-  h2{font-size:clamp(26px,4vw,38px);text-align:center;font-weight:800;letter-spacing:-.02em}
-  .lead{text-align:center;color:var(--muted);max-width:640px;margin:18px auto 0;font-size:17px}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:46px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px;
-    transition:transform .2s, border-color .2s}
-  .card:hover{transform:translateY(-4px);border-color:#d3d7e2}
-  .card .ic{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;
-    background:var(--panel2);margin-bottom:16px}
-  .card .ic svg{width:22px;height:22px}
-  .card h4{font-size:18px;margin-bottom:8px}
-  .card p{color:var(--muted);font-size:15px}
+  section{padding:96px 0;position:relative}
+  .eyebrow{color:var(--accent);font-size:14px;font-weight:700;text-align:center;margin-bottom:16px;letter-spacing:.14em;text-transform:uppercase}
+  h2{font-size:clamp(34px,6vw,60px);text-align:center;font-weight:500;letter-spacing:-.035em;line-height:1.0}
+  .lead{text-align:center;color:var(--muted);max-width:700px;margin:22px auto 0;font-size:clamp(17px,2vw,21px);font-weight:400}
+  /* BENTO grid — large rounded tiles (theboring-style) */
+  .grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(220px,auto);gap:16px;margin-top:60px}
+  .card{grid-column:span 2;display:flex;flex-direction:column;
+    background:
+      radial-gradient(130% 150% at 100% 0%, rgba(255,90,110,.12), transparent 55%),
+      linear-gradient(180deg,#221215,#170c0f);
+    border:1px solid var(--line);border-radius:var(--radius);padding:40px;position:relative;overflow:hidden;
+    transition:transform .3s cubic-bezier(.16,.84,.44,1), border-color .3s, box-shadow .3s}
+  .card.wide{grid-column:span 3}
+  .card.tall{grid-row:span 2}
+  .card::after{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;pointer-events:none;
+    background:radial-gradient(300px 220px at 50% -10%, var(--glow), transparent 70%);transition:opacity .35s}
+  .card:hover{transform:translateY(-6px);border-color:rgba(255,90,110,.5);box-shadow:0 30px 80px -40px var(--glow)}
+  .card:hover::after{opacity:1}
+  .card .ic{width:58px;height:58px;border-radius:17px;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.05);border:1px solid var(--line);margin-bottom:auto;position:relative;z-index:1}
+  .card .ic svg{width:28px;height:28px}
+  .card h4{font-size:clamp(24px,2.4vw,30px);font-weight:700;line-height:1.05;margin:24px 0 10px;position:relative;z-index:1;letter-spacing:-.02em}
+  .card p{color:var(--muted);font-size:16px;line-height:1.5;position:relative;z-index:1;max-width:46ch}
+  /* cream accent tiles (theboring signature) */
+  .card.cream{background:linear-gradient(180deg,#f3e9df,var(--cream));border-color:rgba(0,0,0,.08)}
+  .card.cream h4{color:var(--cream-ink)}
+  .card.cream p{color:#5c4a44}
+  .card.cream .ic{background:rgba(42,21,24,.06);border-color:rgba(42,21,24,.12)}
+  .card.cream .ic svg{stroke:var(--cream-ink)!important}
+  .card.cream:hover{border-color:rgba(0,0,0,.18);box-shadow:0 30px 80px -40px rgba(0,0,0,.5)}
+  .card.cream::after{display:none}
+  @media(max-width:920px){.grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:auto}
+    .card,.card.wide{grid-column:span 1}.card.tall{grid-row:auto}}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}.card{padding:30px}}
 
-  /* alternating light section */
-  .strip{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
-  .two h2{text-align:left}
-  .two p{color:var(--muted);font-size:17px;margin-top:14px}
-  .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--ok);
-    background:rgba(21,160,90,.1);border:1px solid rgba(21,160,90,.22);padding:5px 11px;border-radius:999px}
+  /* alternating section — subtle tint on black */
+  .strip{background:
+      radial-gradient(120% 100% at 50% 0%, rgba(255,90,110,.05), transparent 60%),
+      var(--bg2);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+    background:radial-gradient(120% 140% at 0% 0%, rgba(255,90,110,.08), transparent 55%),linear-gradient(180deg,#1a0e11,#120a0c);
+    border:1px solid var(--line);border-radius:var(--radius);padding:48px}
+  .two h2{text-align:left;font-size:clamp(30px,4vw,46px)}
+  .two p{color:var(--muted);font-size:18px;margin-top:18px;line-height:1.55}
+  @media(max-width:760px){.two{padding:30px}}
+  .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--accent);
+    background:rgba(255,90,110,.1);border:1px solid rgba(255,90,110,.28);padding:6px 13px;border-radius:999px;text-transform:uppercase}
   .two b{color:var(--txt)}
   .ai-list{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
   .ai-list li{position:relative;padding-left:26px;color:var(--muted);line-height:1.5}
@@ -271,11 +351,12 @@
   /* LANGUAGES */
   .langchips{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:40px}
   .langchips span{border:1px solid var(--line);background:var(--panel);border-radius:999px;
-    padding:10px 18px;font-size:15px;font-weight:600;color:var(--txt)}
+    padding:14px 26px;font-size:18px;font-weight:600;color:var(--txt);transition:border-color .2s,transform .2s}
+  .langchips span:hover{border-color:var(--accent);transform:translateY(-2px)}
 
   /* WELCOME (first-launch screen preview) */
   .welcome{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;gap:0;
-    border:1px solid var(--line);border-radius:24px;overflow:hidden;max-width:960px;margin:46px auto 0;background:#000}
+    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;max-width:1000px;margin:0 auto;background:#08080a}
   .welcome .wtext{padding:54px 44px;display:flex;flex-direction:column;justify-content:center;gap:18px}
   .welcome .wmark{height:34px;width:auto;align-self:flex-start}
   .welcome .haiku{font-size:22px;line-height:1.9;color:var(--txt);white-space:pre-line}
@@ -294,15 +375,18 @@
   .contacts a:hover{border-color:var(--accent);transform:translateY(-2px)}
   .contacts svg{width:22px;height:22px}
   .finefoot{max-width:680px;margin:18px auto 0;font-size:12px;line-height:1.7;color:#6a6a72}
-  /* FAQ */
-  .faq{max-width:720px;margin:38px auto 0;text-align:left}
-  .faq details{border-top:1px solid var(--line);padding:18px 2px}
-  .faq details:last-child{border-bottom:1px solid var(--line)}
-  .faq summary{font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:18px;color:var(--txt)}
+  /* FAQ — masonry of accordion cards (theboring-style) */
+  .faq{max-width:960px;margin:48px auto 0;text-align:left;columns:2;column-gap:18px}
+  .faq details{break-inside:avoid;-webkit-column-break-inside:avoid;margin-bottom:18px;
+    background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+    border:1px solid var(--line);border-radius:16px;padding:18px 20px;transition:border-color .2s}
+  .faq details[open]{border-color:rgba(255,90,110,.4)}
+  .faq summary{font-size:16px;font-weight:650;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:18px;color:var(--txt)}
   .faq summary::-webkit-details-marker{display:none}
-  .faq summary::after{content:"+";color:var(--muted);font-weight:400;flex:none}
+  .faq summary::after{content:"+";color:var(--accent);font-weight:400;flex:none;font-size:20px;line-height:1}
   .faq details[open] summary::after{content:"–"}
-  .faq p{color:var(--muted);font-size:15px;margin-top:12px}
+  .faq p{color:var(--muted);font-size:14.5px;margin-top:12px}
+  @media(max-width:760px){.faq{columns:1}}
 
   @media(max-width:900px){
     /* welcome/hero-баннер: картинка сверху ровным баннером, текст под ней по центру */
@@ -323,26 +407,30 @@
    <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;width:100%">
     <div class="brand"><img src="assets/icon.png" alt="Jikoku" /> <img src="assets/jikoku-wordmark.png" class="brand-mark" alt="Jikoku" /></div>
     <div class="nav-right">
-      <a class="cta" href="#signup"><span class="ru-t">Узнать о выходе →</span><span class="en-t">Get notified →</span></a>
+      <a class="cta" href="#signup"><span class="ru-t">Бесплатный ранний доступ →</span><span class="en-t">Get free early access →</span></a>
     </div>
    </div>
   </nav>
 
 <div class="wrap">
-  <header style="padding-top:34px">
-    <!-- HERO: welcome banner (poem + illustration) -->
-    <div class="welcome hero-welcome reveal">
-      <div class="wtext">
-        <img class="wmark" src="assets/jikoku-wordmark.png" alt="Jikoku" />
-        <div class="haiku">露の世は
-露の世ながら
-さりながら</div>
-        <div class="wauthor">— <span class="ru-t">Кобаяси Исса</span><span class="en-t">Kobayashi Issa</span> (1763–1828)</div>
-      </div>
-      <div class="wimg"><img src="assets/welcome-banner.png" alt="Sakura and Mount Fuji" /></div>
+  <header style="padding-top:24px">
+    <div class="stage"><div class="pool"></div></div>
+
+    <div class="reveal" style="text-align:center;margin-bottom:8px">
+      <img src="assets/icon.png" alt="Jikoku app icon" width="104" height="104"
+           style="width:104px;height:104px;border-radius:24px;box-shadow:0 18px 60px var(--glow);animation:floaty 6s ease-in-out infinite" />
     </div>
 
-    <p class="sub reveal" style="margin-top:30px">
+    <div class="reveal" style="text-align:center">
+      <span class="hero-badge"><span class="dot"></span><span class="ru-t">Нативно для macOS · Локальный ИИ</span><span class="en-t">Native macOS · On-device AI</span></span>
+    </div>
+
+    <h1 class="reveal" style="text-align:center;max-width:14ch;margin:0 auto">
+      <span class="ru-t">Одно спокойное окно <span class="serif">на весь твой день</span></span>
+      <span class="en-t">One calm window <span class="serif">for your whole day</span></span>
+    </h1>
+
+    <p class="sub reveal" style="margin-top:24px;text-align:center">
       <span class="ru-t">Личный iCloud и рабочий Exchange-календарь рядом с твоими напоминаниями — в спокойном нативном интерфейсе для Mac.</span>
       <span class="en-t">Your personal iCloud and work Exchange calendar, side by side with your reminders — in one calm, native Mac app.</span>
     </p>
@@ -357,6 +445,7 @@
     <div class="thanks" id="thanks"><span class="ru-t">Спасибо! Напишем, как только Jikoku будет готов 🎉</span><span class="en-t">Thanks! We'll email you when Jikoku is ready 🎉</span></div>
 
     <div class="pills reveal" style="margin-top:24px">
+      <a class="pill primary" href="#signup"><span class="ru-t">Бесплатный ранний доступ</span><span class="en-t">Get free early access</span></a>
       <a class="pill ghost" href="#features"><span class="ru-t">Что внутри ↓</span><span class="en-t">What's inside ↓</span></a>
     </div>
 
@@ -372,18 +461,40 @@
       </div>
       <span class="plus">+</span>
       <div class="appitem">
+        <div class="appicon"><img src="assets/app-notes.png" alt="Notes" /></div>
+        <span class="applabel"><span class="ru-t">Заметки</span><span class="en-t">Notes</span></span>
+      </div>
+      <span class="plus">+</span>
+      <div class="appitem">
         <div class="appicon"><img src="assets/app-exchange.png" alt="Exchange / Outlook" /></div>
         <span class="applabel">Exchange</span>
       </div>
     </div>
 
     <!-- REAL SCREENSHOT -->
-    <div class="shot reveal">
+    <div class="eyebrow reveal" style="margin-top:74px">👀 <span class="ru-t">Посмотри вживую</span><span class="en-t">See it in action</span></div>
+    <div class="shot reveal scale">
       <img id="heroShot" src="assets/screenshot.png?v=dark" alt="Jikoku — calendar and reminders in one window" />
     </div>
     <div class="caption reveal"><span class="ru-t">Реальный интерфейс Jikoku — никаких рендеров.</span><span class="en-t">Real Jikoku interface — not a render.</span></div>
   </header>
 </div>
+
+<!-- POETIC INTERLUDE (haiku welcome banner) -->
+<section>
+  <div class="wrap">
+    <div class="welcome hero-welcome reveal scale">
+      <div class="wtext">
+        <img class="wmark" src="assets/jikoku-wordmark.png" alt="Jikoku" />
+        <div class="haiku">露の世は
+露の世ながら
+さりながら</div>
+        <div class="wauthor">— <span class="ru-t">Кобаяси Исса</span><span class="en-t">Kobayashi Issa</span> (1763–1828)</div>
+      </div>
+      <div class="wimg"><img src="assets/welcome-banner.png" alt="Sakura and Mount Fuji" /></div>
+    </div>
+  </div>
+</section>
 
 <!-- HIGHLIGHT: drag & duration -->
 <section class="strip">
@@ -416,6 +527,8 @@
         <li><span class="ru-t"><b>Диктовка</b> задач и встреч голосом или текстом — на русском, английском, китайском, японском и др.</span><span class="en-t"><b>Dictation</b> of tasks and meetings by voice or text — in English, Russian, Chinese, Japanese and more.</span></li>
         <li><span class="ru-t"><b>Умный поиск</b> по встречам и напоминаниям.</span><span class="en-t"><b>Smart search</b> across meetings and reminders.</span></li>
         <li><span class="ru-t"><b>Спроси «что у меня в пятницу на следующей неделе?»</b> — и получишь расписание дня, свободные слоты и рекомендации.</span><span class="en-t"><b>Ask “what do I have next Friday?”</b> — and get the day's schedule, free slots and suggestions.</span></li>
+        <li><span class="ru-t"><b>Авто-распределение задач</b> — Jikoku сам находит свободные окна и раскладывает дела по календарю с учётом длительности и перерывов.</span><span class="en-t"><b>Auto-scheduling</b> — Jikoku finds free gaps and places your tasks into the calendar, respecting duration and buffers.</span></li>
+        <li><span class="ru-t"><b>Саммари и задачи из заметок</b> — выделяет суть и вытаскивает конкретные поручения прямо из текста заметки.</span><span class="en-t"><b>Summaries & tasks from notes</b> — pulls the gist and extracts concrete action items straight from a note.</span></li>
       </ul>
     </div>
   </div>
@@ -425,38 +538,58 @@
 <section id="features">
   <div class="wrap">
     <div class="eyebrow reveal"><span class="ru-t">ЧТО ВНУТРИ</span><span class="en-t">WHAT'S INSIDE</span></div>
-    <h2 class="reveal"><span class="ru-t">Одно окно вместо четырёх</span><span class="en-t">One window instead of four</span></h2>
+    <h2 class="reveal"><span class="ru-t">Одно окно вместо четырёх</span><span class="en-t">One window instead of four</span> 🚀</h2>
     <p class="lead reveal"><span class="ru-t">Личное — через твой iCloud, без логинов и серверов. Рабочее — напрямую из Exchange.</span><span class="en-t">Personal lives in your iCloud — no logins, no servers. Work comes straight from Exchange.</span></p>
     <div class="grid reveal stagger">
-      <div class="card">
+      <div class="card wide">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h2M8 18h2"/></svg></div>
-        <h4><span class="ru-t">Календарь и задачи вместе</span><span class="en-t">Calendar & tasks together</span></h4>
+        <h4><span class="ru-t">Календарь и задачи вместе</span><span class="en-t">Calendar & tasks together</span> 📅</h4>
         <p><span class="ru-t">Встречи и напоминания на одном таймлайне. День, неделя, месяц.</span><span class="en-t">Meetings and reminders on one timeline. Day, week, month.</span></p>
       </div>
-      <div class="card">
+      <div class="card wide">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M12 2v20M2 12h20"/></svg></div>
-        <h4><span class="ru-t">Drag &amp; drop + длительность</span><span class="en-t">Drag &amp; drop + duration</span></h4>
+        <h4><span class="ru-t">Drag &amp; drop + длительность</span><span class="en-t">Drag &amp; drop + duration</span> ✋</h4>
         <p><span class="ru-t">Перетащи напоминание в день и растяни на нужное время. Чего нет у Apple.</span><span class="en-t">Drop a reminder into the day and stretch it to the time it needs.</span></p>
       </div>
       <div class="card">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2"><path d="M3 21V5l9-2v20M3 21h18M14 7h5v14M8 8v.01M8 12v.01M8 16v.01"/></svg></div>
-        <h4><span class="ru-t">Рабочий Exchange рядом</span><span class="en-t">Work Exchange, right there</span></h4>
+        <h4><span class="ru-t">Рабочий Exchange рядом</span><span class="en-t">Work Exchange, right there</span> 💼</h4>
         <p><span class="ru-t">Корпоративный Exchange-календарь рядом с личным — без тяжёлого корпоративного клиента.</span><span class="en-t">Your corporate Exchange calendar next to your personal one — no clunky corporate client.</span></p>
       </div>
-      <div class="card">
+      <div class="card cream">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#5b76f0" stroke-width="2"><path d="M12 20.5C7 20.5 3 16.5 3 11.5 3 7 6 4 9.5 4c1.5 0 2.5.8 2.5.8S13 4 14.5 4C18 4 21 7 21 11.5c0 5-4 9-9 9z"/><path d="M12 4.8s.5-2.8 3-3"/></svg></div>
-        <h4><span class="ru-t">Нативно для Mac</span><span class="en-t">Native to Mac</span></h4>
+        <h4><span class="ru-t">Нативно для Mac</span><span class="en-t">Native to Mac</span> 🍎</h4>
         <p><span class="ru-t">SwiftUI, светлая и тёмная тема, лёгкость. Ощущается как часть macOS.</span><span class="en-t">SwiftUI, light & dark, fast. Feels like part of macOS.</span></p>
       </div>
       <div class="card">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
-        <h4><span class="ru-t">Приватно</span><span class="en-t">Private</span></h4>
+        <h4><span class="ru-t">Приватно</span><span class="en-t">Private</span> 🔒</h4>
         <p><span class="ru-t">Личные данные — только в твоём iCloud. Наших серверов нет.</span><span class="en-t">Your personal data stays in your iCloud. We run no servers.</span></p>
       </div>
       <div class="card">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/><circle cx="18.5" cy="17.5" r="2.5"/></svg></div>
-        <h4><span class="ru-t">Mac в мире Windows</span><span class="en-t">Mac in a Windows world</span></h4>
+        <h4><span class="ru-t">Mac в мире Windows</span><span class="en-t">Mac in a Windows world</span> 🪟</h4>
         <p><span class="ru-t">Для тех, кто на Mac внутри корпоративной Windows-среды. Человеческий интерфейс поверх рабочего Exchange.</span><span class="en-t">For people on a Mac inside a corporate Windows environment. A human interface over your work Exchange.</span></p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2"><path d="M4 4h13l3 3v13H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></div>
+        <h4><span class="ru-t">Заметки с ИИ</span><span class="en-t">Notes with AI</span> 📝</h4>
+        <p><span class="ru-t">Заметки рядом с календарём (через Apple Notes). ИИ делает <b>саммари</b> и вытаскивает <b>задачи прямо из текста</b> — одной кнопкой в напоминания.</span><span class="en-t">Notes next to your calendar (via Apple Notes). AI writes a <b>summary</b> and pulls <b>tasks straight from the text</b> — one click into reminders.</span></p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/><path d="M16 3l2 2-2 2"/></svg></div>
+        <h4><span class="ru-t">Умное распределение задач</span><span class="en-t">Smart task scheduling</span> 🗓️</h4>
+        <p><span class="ru-t">Jikoku сам находит свободные окна и раскладывает дела по дням с учётом длительности и перерывов — с предпросмотром перед записью.</span><span class="en-t">Jikoku finds free gaps and lays your tasks across the days, respecting duration and buffers — with a preview before it writes.</span></p>
+      </div>
+      <div class="card wide">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#5b76f0" stroke-width="2"><path d="M12 3v18M8 7v10M16 7v10M4 10v4M20 10v4"/></svg></div>
+        <h4><span class="ru-t">Транскрипция встреч</span><span class="en-t">Meeting transcription</span> 🎙️</h4>
+        <p><span class="ru-t">Записывай встречу прямо в приложении — локально, без облака. Распознавание речи, разметка спикеров, саммари и задачи, всё сохраняется в заметку.</span><span class="en-t">Record a meeting right in the app — locally, no cloud. Speech recognition, speaker labels, summary and tasks, all saved to a note.</span></p>
+      </div>
+      <div class="card wide cream">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M16 14a4 4 0 1 0-8 0"/><circle cx="12" cy="7" r="3"/><path d="M3 20a7 7 0 0 1 14 0"/><path d="M19 8l2 2 3-3"/></svg></div>
+        <h4><span class="ru-t">Приглашения через слоты</span><span class="en-t">Invites via free slots</span> 📨</h4>
+        <p><span class="ru-t">Отправь человеку свои свободные окна — он выбирает удобное, и улетает настоящее приглашение iCloud/Exchange, встреча сразу в обоих календарях.</span><span class="en-t">Send someone your open time — they pick a slot and a real iCloud/Exchange invite goes out, with the meeting landing in both calendars.</span></p>
       </div>
     </div>
   </div>
@@ -466,7 +599,7 @@
 <section>
   <div class="wrap" style="text-align:center">
     <div class="eyebrow reveal"><span class="ru-t">СВЕТЛАЯ И ТЁМНАЯ</span><span class="en-t">LIGHT &amp; DARK</span></div>
-    <h2 class="reveal"><span class="ru-t">Светлая и тёмная — по системе</span><span class="en-t">Light &amp; dark — follows your system</span></h2>
+    <h2 class="reveal"><span class="ru-t">Светлая и тёмная — по системе</span><span class="en-t">Light &amp; dark — follows your system</span> 🌗</h2>
     <p class="lead reveal"><span class="ru-t">Jikoku подхватывает оформление macOS автоматически или ставит тему вручную. Обе выглядят как родные.</span><span class="en-t">Jikoku follows your macOS appearance automatically, or set the theme by hand. Both feel native.</span></p>
     <div class="themes reveal stagger">
       <div class="themeshot">
@@ -485,11 +618,11 @@
 <section class="strip">
   <div class="wrap">
     <div class="eyebrow reveal"><span class="ru-t">ПЛАНИРУЕМАЯ ЦЕНА</span><span class="en-t">PLANNED PRICE</span></div>
-    <h2 class="reveal"><span class="ru-t">Покупаешь один раз</span><span class="en-t">Buy it once</span></h2>
+    <h2 class="reveal"><span class="ru-t">Покупаешь один раз</span><span class="en-t">Buy it once</span> 💸</h2>
     <p class="lead reveal"><span class="ru-t">Никаких подписок. Приложение — твоё. Exchange входит в комплект.</span><span class="en-t">No subscriptions. The app is yours. Exchange included.</span></p>
     <div class="ptier reveal">
       <div class="lbl">Jikoku</div>
-      <div class="amt">$29<span> <span class="ru-t">/ навсегда</span><span class="en-t">/ forever</span></span></div>
+      <div class="amt">$49<span> <span class="ru-t">/ навсегда</span><span class="en-t">/ forever</span></span></div>
       <div class="lbl" style="margin-bottom:8px"><span class="ru-t">Один раз — а не $20–25/мес, как у других планировщиков</span><span class="en-t">A one-time price — not $20–25/mo like other planners</span></div>
       <ul>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span class="ru-t">Календарь + Напоминания iCloud</span><span class="en-t">Calendar + iCloud Reminders</span></li>
@@ -505,7 +638,7 @@
 <section>
   <div class="wrap">
     <div class="eyebrow reveal"><span class="ru-t">ПОМОГИ РЕШИТЬ, ЧТО ДЕЛАТЬ ДАЛЬШЕ</span><span class="en-t">HELP US DECIDE WHAT'S NEXT</span></div>
-    <h2 class="reveal"><span class="ru-t">Что добавить в Jikoku?</span><span class="en-t">What should we add to Jikoku?</span></h2>
+    <h2 class="reveal"><span class="ru-t">Что добавить в Jikoku?</span><span class="en-t">What should we add to Jikoku?</span> 🗳️</h2>
     <p class="lead reveal"><span class="ru-t">Нажми на то, что было бы тебе нужно. Это анонимно и помогает выбрать приоритеты.</span><span class="en-t">Tap what you'd actually use. It's anonymous and helps us prioritise.</span></p>
     <div class="poll reveal stagger">
       <div class="pcard" data-feature="email" onclick="vote(this)">
@@ -532,7 +665,7 @@
 <section class="strip">
   <div class="wrap" style="text-align:center">
     <div class="eyebrow reveal"><span class="ru-t">НА ТВОЁМ ЯЗЫКЕ</span><span class="en-t">IN YOUR LANGUAGE</span></div>
-    <h2 class="reveal"><span class="ru-t">Интерфейс и диктовка на 6 языках</span><span class="en-t">Interface & dictation in 6 languages</span></h2>
+    <h2 class="reveal"><span class="ru-t">Интерфейс и диктовка на 6 языках</span><span class="en-t">Interface & dictation in 6 languages</span> 🌍</h2>
     <p class="lead reveal"><span class="ru-t">Приложение и локальное распознавание речи понимают:</span><span class="en-t">The app and on-device speech recognition understand:</span></p>
     <div class="langchips reveal stagger">
       <span>Русский</span><span>English</span><span>中文</span><span>日本語</span><span>Español</span><span>Deutsch</span>
@@ -544,7 +677,7 @@
 <section class="strip">
   <div class="wrap" style="text-align:center">
     <div class="eyebrow reveal"><span class="ru-t">ВОПРОСЫ</span><span class="en-t">FAQ</span></div>
-    <h2 class="reveal"><span class="ru-t">Частые вопросы</span><span class="en-t">Frequently asked questions</span></h2>
+    <h2 class="reveal"><span class="ru-t">Частые вопросы</span><span class="en-t">Frequently asked questions</span> ❓</h2>
     <div class="faq reveal">
       <details>
         <summary><span class="ru-t">Что такое Jikoku?</span><span class="en-t">What is Jikoku?</span></summary>
@@ -559,6 +692,18 @@
         <p><span class="ru-t">Ты диктуешь или печатаешь обычной речью, а локальная нейросеть на твоём Mac (без облака и без Apple Intelligence) превращает это в задачи с датой, временем и длительностью.</span><span class="en-t">You dictate or type in plain language and an on-device neural network on your Mac (no cloud, no Apple Intelligence) turns it into tasks with date, time and duration.</span></p>
       </details>
       <details>
+        <summary><span class="ru-t">Есть ли заметки и задачи из них?</span><span class="en-t">Are there notes, and tasks from them?</span></summary>
+        <p><span class="ru-t">Да. Заметки живут рядом с календарём (через Apple Notes). Локальный ИИ делает по заметке саммари и вытаскивает из текста конкретные задачи — их можно одной кнопкой отправить в напоминания.</span><span class="en-t">Yes. Notes live next to your calendar (via Apple Notes). The on-device AI summarises a note and extracts concrete tasks from its text — one click sends them to your reminders.</span></p>
+      </details>
+      <details>
+        <summary><span class="ru-t">Можно ли записывать встречи?</span><span class="en-t">Can it record meetings?</span></summary>
+        <p><span class="ru-t">Да, прямо в приложении и полностью локально: распознавание речи, разметка спикеров, саммари и задачи. Запись не блокирует окно — можно работать дальше, а итог сохраняется в заметку.</span><span class="en-t">Yes, right in the app and fully on-device: speech recognition, speaker labels, summary and tasks. Recording doesn't block the window — keep working while it runs, and the result is saved to a note.</span></p>
+      </details>
+      <details>
+        <summary><span class="ru-t">Как Jikoku помогает планировать день?</span><span class="en-t">How does Jikoku help plan the day?</span></summary>
+        <p><span class="ru-t">Он сам находит свободные окна и раскладывает задачи по календарю с учётом длительности и перерывов (с предпросмотром). А ещё умеет отправить человеку твои свободные слоты — тот выбирает время, и уходит настоящее приглашение iCloud/Exchange.</span><span class="en-t">It finds free gaps and lays tasks across your calendar respecting duration and buffers (with a preview). It can also send someone your free slots — they pick a time and a real iCloud/Exchange invite goes out.</span></p>
+      </details>
+      <details>
         <summary><span class="ru-t">Работает ли с Exchange / Outlook?</span><span class="en-t">Does it work with Exchange / Outlook?</span></summary>
         <p><span class="ru-t">Да, рабочий Exchange-календарь стоит рядом с личным iCloud.</span><span class="en-t">Yes, your work Exchange calendar sits next to your personal iCloud one.</span></p>
       </details>
@@ -568,8 +713,20 @@
       </details>
       <details>
         <summary><span class="ru-t">Сколько стоит Jikoku?</span><span class="en-t">How much does Jikoku cost?</span></summary>
-        <p><span class="ru-t">Планируется разовая покупка около $29 без подписки, Exchange включён (цена ориентировочная).</span><span class="en-t">A one-time purchase of about $29, no subscription, Exchange included (price tentative).</span></p>
+        <p><span class="ru-t">Планируется разовая покупка около $49 без подписки, Exchange включён (цена ориентировочная).</span><span class="en-t">A one-time purchase of about $49, no subscription, Exchange included (price tentative).</span></p>
       </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="strip cta-stage" style="text-align:center;overflow:hidden;position:relative">
+  <div class="wrap" style="position:relative;z-index:1">
+    <h2 class="reveal"><span class="ru-t">Готов навести порядок <span class="serif">в своём дне</span>?</span><span class="en-t">Ready to bring calm <span class="serif">to your day</span>?</span></h2>
+    <p class="lead reveal"><span class="ru-t">Оставь email — напишем один раз, когда Jikoku выйдет. Ранний доступ бесплатный.</span><span class="en-t">Drop your email — one message when Jikoku ships. Early access is free.</span></p>
+    <div class="pills reveal" style="justify-content:center;margin-top:30px">
+      <a class="pill primary" href="#signup"><span class="ru-t">Получить ранний доступ</span><span class="en-t">Get early access</span></a>
+      <a class="pill ghost" href="#features"><span class="ru-t">Что внутри</span><span class="en-t">What's inside</span></a>
     </div>
   </div>
 </section>
@@ -590,12 +747,13 @@
     <div style="margin-bottom:8px">
       Jikoku — <span class="ru-t">планировщик для macOS · Сделано на Mac, для Mac</span><span class="en-t">a planner for macOS · Made on a Mac, for Mac</span>
       &nbsp;·&nbsp; <a href="termsofuse.html"><span class="ru-t">Условия использования</span><span class="en-t">Terms of Use</span></a>
+      &nbsp;·&nbsp; <a href="privacy.html"><span class="ru-t">Политика конфиденциальности</span><span class="en-t">Privacy Policy</span></a>
     </div>
     <div class="finefoot">
       © 2026 Gleb Lapkovsky. All rights reserved.<br>
       Jikoku runs entirely on your device and your iCloud — no servers, no accounts.<br>
-      On-device speech recognition uses WhisperKit (MIT License).<br>
-      On-device task understanding uses Apple MLX (MIT License) and the Qwen2.5 model by Alibaba (Apache License 2.0).<br>
+      On-device speech recognition and meeting transcription use WhisperKit (MIT License).<br>
+      On-device task understanding, note summaries and task extraction use Apple MLX (MIT License) and the Qwen3-4B model by Alibaba (Apache License 2.0).<br>
       Apple, macOS, Mac, iCloud and the Apple logo are trademarks of Apple Inc. Jikoku is an independent app, not affiliated with Apple Inc.
     </div>
   </div>
@@ -605,6 +763,15 @@
   // ---- language: auto-detect (ru/en native, zh/ja/es/de via dictionary over the EN base) ----
   var TR = {
 "Get notified →":{zh:"获取通知 →",ja:"発売通知を受け取る →",es:"Avísame →",de:"Benachrichtigen →"},
+"Native macOS · On-device AI":{zh:"原生 macOS · 设备端 AI",ja:"macOSネイティブ · オンデバイスAI",es:"macOS nativo · IA en el dispositivo",de:"Nativ für macOS · KI auf dem Gerät"},
+"One calm window <span class=\"serif\">for your whole day</span>":{zh:"一个安静的窗口 <span class=\"serif\">陪你过完一天</span>",ja:"一日をまるごと <span class=\"serif\">この静かな窓で</span>",es:"Una ventana en calma <span class=\"serif\">para todo tu día</span>",de:"Ein ruhiges Fenster <span class=\"serif\">für deinen ganzen Tag</span>"},
+"Get free early access":{zh:"免费抢先体验",ja:"無料で早期アクセス",es:"Acceso anticipado gratis",de:"Kostenloser Früher Zugang"},
+"Get free early access →":{zh:"免费抢先体验 →",ja:"無料で早期アクセス →",es:"Acceso anticipado gratis →",de:"Kostenloser Früher Zugang →"},
+"See it in action":{zh:"实际看看",ja:"実際に見る",es:"Míralo en acción",de:"In Aktion sehen"},
+"Ready to bring calm <span class=\"serif\">to your day</span>?":{zh:"准备好让你的一天 <span class=\"serif\">安静下来</span>了吗？",ja:"あなたの一日に <span class=\"serif\">静けさ</span>を？",es:"¿List@ para llevar la calma <span class=\"serif\">a tu día</span>?",de:"Bereit für mehr Ruhe <span class=\"serif\">in deinem Tag</span>?"},
+"Drop your email — one message when Jikoku ships. Early access is free.":{zh:"留下邮箱——Jikoku 发布时只发一封。早期访问免费。",ja:"メールを残してね——Jikoku公開時に1通だけ。早期アクセスは無料。",es:"Deja tu correo — un mensaje cuando salga Jikoku. El acceso anticipado es gratis.",de:"Trag deine E-Mail ein – eine Nachricht zum Launch. Früher Zugang ist kostenlos."},
+"Get early access":{zh:"获取早期访问",ja:"早期アクセスを取得",es:"Conseguir acceso anticipado",de:"Frühen Zugang sichern"},
+"What's inside":{zh:"内含功能",ja:"中身を見る",es:"Qué incluye",de:"Was drin ist"},
 "Kobayashi Issa":{zh:"小林一茶",ja:"小林一茶",es:"Kobayashi Issa",de:"Kobayashi Issa"},
 "Your personal iCloud and work Exchange calendar, side by side with your reminders — in one calm, native Mac app.":{zh:"你的个人 iCloud 与工作 Exchange 日历，和提醒事项并排呈现——在一个安静的原生 Mac 应用里。",ja:"個人のiCloudと仕事のExchangeカレンダーを、リマインダーと並べて——静かでネイティブなMacアプリで。",es:"Tu iCloud personal y tu calendario de Exchange del trabajo, junto a tus recordatorios — en una app de Mac nativa y tranquila.",de:"Dein privater iCloud- und dein beruflicher Exchange-Kalender — direkt neben deinen Erinnerungen, in einer ruhigen, nativen Mac-App."},
 "Get it first":{zh:"抢先体验",ja:"いち早く手に入れる",es:"Conseguir antes",de:"Zuerst sichern"},
@@ -678,7 +845,7 @@
 "Which languages are supported?":{zh:"支持哪些语言？",ja:"対応言語は？",es:"¿Qué idiomas admite?",de:"Welche Sprachen werden unterstützt?"},
 "The interface and dictation support Russian, English, Chinese, Japanese, Spanish and German.":{zh:"界面和口述支持俄语、英语、中文、日语、西班牙语和德语。",ja:"インターフェースと音声入力はロシア語・英語・中国語・日本語・スペイン語・ドイツ語に対応。",es:"La interfaz y el dictado admiten ruso, inglés, chino, japonés, español y alemán.",de:"Oberfläche und Diktat unterstützen Russisch, Englisch, Chinesisch, Japanisch, Spanisch und Deutsch."},
 "How much does Jikoku cost?":{zh:"Jikoku 多少钱？",ja:"Jikokuの価格は？",es:"¿Cuánto cuesta Jikoku?",de:"Was kostet Jikoku?"},
-"A one-time purchase of about $29, no subscription, Exchange included (price tentative).":{zh:"一次性购买约 $29，无订阅，含 Exchange（价格暂定）。",ja:"約$29の買い切り、サブスクなし、Exchange込み（価格は仮）。",es:"Una compra única de unos $29, sin suscripción, Exchange incluido (precio tentativo).",de:"Einmalkauf von etwa $29, kein Abo, Exchange inklusive (Preis vorläufig)."}
+"A one-time purchase of about $49, no subscription, Exchange included (price tentative).":{zh:"一次性购买约 $49，无订阅，含 Exchange（价格暂定）。",ja:"約$49の買い切り、サブスクなし、Exchange込み（価格は仮）。",es:"Una compra única de unos $49, sin suscripción, Exchange incluido (precio tentativo).",de:"Einmalkauf von etwa $49, kein Abo, Exchange inklusive (Preis vorläufig)."}
   };
   function applyLang(lang){
     var isRu = lang==='ru';
